@@ -1,5 +1,5 @@
 
-import { Clarinet, Chain, Account } from "https://deno.land/x/clarinet@v0.28.1/index.ts";
+import { Clarinet, Chain, Account } from "https://deno.land/x/clarinet@v0.31.1/index.ts";
 import { assert, assertEquals } from 'https://deno.land/std@0.90.0/testing/asserts.ts';
 import { ExecutorDaoErrCode } from "./src/executor-dao-client.ts";
 import { Utils } from "./src/utils.ts";

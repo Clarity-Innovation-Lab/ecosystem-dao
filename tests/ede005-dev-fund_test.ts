@@ -1,4 +1,4 @@
-import { Clarinet, Chain, Account } from "https://deno.land/x/clarinet@v0.28.1/index.ts";
+import { Clarinet, Chain, Account } from "https://deno.land/x/clarinet@v0.31.1/index.ts";
 import { assert } from "https://deno.land/std@0.90.0/testing/asserts.ts";
 import { EDE005DevFundClient, EDE005DevFundErrCode } from "./src/ede005-dev-fund-client.ts";
 import { Utils } from "./src/utils.ts";

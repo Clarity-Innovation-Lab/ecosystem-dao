@@ -1,5 +1,5 @@
 
-import { types, Clarinet, Chain, Account } from "https://deno.land/x/clarinet@v0.28.1/index.ts";
+import { types, Clarinet, Chain, Account } from "https://deno.land/x/clarinet@v0.31.1/index.ts";
 import { assert, assertEquals } from 'https://deno.land/std@0.90.0/testing/asserts.ts';
 import { EDE002ProposalSubmissionClient } from "./src/ede002-proposal-submission-client.ts";
 import { EDE001ProposalVotingClient, EDE001ProposalVotingErrCode } from "./src/ede001-proposal-voting-client.ts";
