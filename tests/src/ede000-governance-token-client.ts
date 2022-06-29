@@ -8,6 +8,10 @@ import {
 
 export enum EDE000GovernanceTokenErrCode {
   err_unauthorised=3000,
+  err_insufficient_balance_to_rescind=3001,
+  err_rescinding_more_than_delegated=3002,
+  err_insufficient_undelegated_tokens=3003,
+  err_amount_to_send_is_non_positive=3,
   err_not_token_owner=4
 }
 
@@ -73,6 +77,27 @@ export class EDE000GovernanceTokenClient {
       [types.uint(value)], txSender);
   }
 
+  edgRescind(amount: number, proxy: string, txSender: string): Tx {
+    return Tx.contractCall(
+      this.contractName,
+      "edg-rescind",
+      [types.uint(amount), types.principal(proxy)], txSender);
+  }
+  
+  edgDelegate(amount: number, proxy: string, txSender: string): Tx {
+    return Tx.contractCall(
+      this.contractName,
+      "edg-delegate",
+      [types.uint(amount), types.principal(proxy)], txSender);
+  }
+
+  edgGetTotalDelegated(proxy: string): ReadOnlyFn {
+    return this.callReadOnlyFn("edg-get-total-delegated", [types.principal(proxy)]);
+  }
+
+  edgGetDelegating(voter: string, proxy: string): ReadOnlyFn {
+    return this.callReadOnlyFn("edg-get-delegating", [types.principal(voter), types.principal(proxy)]);
+  }
 
   edgGetBalance(sender: string, ): ReadOnlyFn {
     return this.callReadOnlyFn("edg-get-balance", [types.principal(sender)]);

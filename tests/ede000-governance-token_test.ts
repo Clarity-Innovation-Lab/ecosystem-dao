@@ -1,70 +1,9 @@
 
 import { Clarinet, Chain, Account } from "https://deno.land/x/clarinet@v0.28.1/index.ts";
-import { ExecutorDaoClient } from "./src/executor-dao-client.ts";
-import { EDE000GovernanceTokenClient, EDE000GovernanceTokenErrCode } from "./src/ede000-governance-token-client.ts";
-import { EDE001ProposalVotingClient } from "./src/ede001-proposal-voting-client.ts";
-import { EDE002ProposalSubmissionClient } from "./src/ede002-proposal-submission-client.ts";
+import { EDE000GovernanceTokenErrCode } from "./src/ede000-governance-token-client.ts";
 import { Utils } from "./src/utils.ts";
 
 const utils = new Utils();
-
-const assertProposal = (
-  chain: Chain,
-  exeDaoClient: ExecutorDaoClient, 
-  contractEDP000: string, 
-  deployer: Account, 
-  phil: Account, 
-  bobby: Account, 
-  ward: Account, 
-  daisy: Account, 
-  contractEDE000: string, 
-  proposal: string, 
-  ede002ProposalSubmissionClient: EDE002ProposalSubmissionClient,
-  ede000GovernanceTokenClient: EDE000GovernanceTokenClient,
-  ede001ProposalVotingClient: EDE001ProposalVotingClient): any => {
-    let block = chain.mineBlock([
-      exeDaoClient.construct(contractEDP000, deployer.address),
-    ]);
-    block.receipts[0].result.expectOk().expectBool(true)
-
-    const propStartDelay = 144
-    const startHeight = block.height + propStartDelay
-    block = chain.mineBlock([
-      ede002ProposalSubmissionClient.propose(proposal, startHeight, contractEDE000, phil.address),
-    ]);
-    block.receipts[0].result.expectOk().expectBool(true)
-
-    chain.mineEmptyBlock(startHeight + 1);
-
-    block = chain.mineBlock([
-      ede001ProposalVotingClient.vote(500, true, proposal, contractEDE000, bobby.address)
-    ]);
-    block.receipts[0].result.expectOk().expectBool(true)
-    
-    chain.mineEmptyBlock(1585);
-  
-    ede000GovernanceTokenClient.edgGetBalance(deployer.address).result.expectOk().expectUint(1000)
-    ede000GovernanceTokenClient.edgGetBalance(phil.address).result.expectOk().expectUint(1000)
-    ede000GovernanceTokenClient.edgGetBalance(daisy.address).result.expectOk().expectUint(1000)
-    ede000GovernanceTokenClient.edgGetBalance(ward.address).result.expectOk().expectUint(0)
-
-    ede000GovernanceTokenClient.getTotalSupply().result.expectOk().expectUint(9000)
-
-    block = chain.mineBlock([
-      ede001ProposalVotingClient.conclude(proposal, ward.address)
-    ]);
-    block.receipts[0].result.expectOk().expectBool(true)
-
-    ede000GovernanceTokenClient.edgGetBalance(bobby.address).result.expectOk().expectUint(3000)
-    ede000GovernanceTokenClient.edgGetBalance(deployer.address).result.expectOk().expectUint(1000)
-    ede000GovernanceTokenClient.edgGetBalance(phil.address).result.expectOk().expectUint(1900)
-    ede000GovernanceTokenClient.edgGetLocked(phil.address).result.expectOk().expectUint(1485)
-    ede000GovernanceTokenClient.edgGetBalance(daisy.address).result.expectOk().expectUint(1010)
-    ede000GovernanceTokenClient.edgGetBalance(ward.address).result.expectOk().expectUint(490)
-    ede000GovernanceTokenClient.edgGetLocked(ward.address).result.expectOk().expectUint(490)
-
-    ede000GovernanceTokenClient.getTotalSupply().result.expectOk().expectUint(12400)
-}
 
 Clarinet.test({
     name: "Ensure edg cant be transferred if tx sender is not the owner or the dao.",

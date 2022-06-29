@@ -26,8 +26,12 @@
 (define-constant err-no-votes-to-return (err u3008))
 (define-constant err-end-block-height-not-reached (err u3009))
 (define-constant err-disabled (err u3010))
+(define-constant err-rescinding-more-than-delegated (err u3011))
+(define-constant err-rescinding-more-than-cast (err u3012))
+(define-constant err-rescind-time-lock-active (err u3013))
 
 (define-data-var governance-token-principal principal .ede000-governance-token)
+(define-data-var rescind-time-lock uint u288) ;; rescind is disabled this many blocks before the end of vote.
 
 (define-map proposals
 	principal
@@ -42,7 +46,7 @@
 	}
 )
 
-(define-map member-total-votes {proposal: principal, voter: principal, governance-token: principal} uint)
+(define-map member-total-votes { for: bool, proposal: principal, voter: principal, governance-token: principal } uint)
 
 ;; --- Authorisation check
 
@@ -58,6 +62,13 @@
 	(begin
 		(try! (is-dao-or-extension))
 		(ok (var-set governance-token-principal (contract-of governance-token)))
+	)
+)
+
+(define-public (set-rescind-time-lock (new-rescind-time-lock uint))
+	(begin
+		(try! (is-dao-or-extension))
+		(ok (var-set rescind-time-lock new-rescind-time-lock))
 	)
 )
 
@@ -93,7 +104,14 @@
 ;; Votes
 
 (define-read-only (get-current-total-votes (proposal principal) (voter principal) (governance-token principal))
-	(default-to u0 (map-get? member-total-votes {proposal: proposal, voter: voter, governance-token: governance-token}))
+	(+ 
+		(get-current-votes true proposal voter governance-token)
+		(get-current-votes false proposal voter governance-token)
+	)
+)
+
+(define-read-only (get-current-votes (for bool) (proposal principal) (voter principal) (governance-token principal))
+	(default-to u0 (map-get? member-total-votes {for: for, proposal: proposal, voter: voter, governance-token: governance-token}))
 )
 
 (define-public (vote (amount uint) (for bool) (proposal principal) (governance-token <governance-token-trait>))
@@ -105,8 +123,8 @@
 		(try! (is-governance-token governance-token))
 		(asserts! (>= block-height (get start-block-height proposal-data)) err-proposal-inactive)
 		(asserts! (< block-height (get end-block-height proposal-data)) err-proposal-inactive)
-		(map-set member-total-votes {proposal: proposal, voter: tx-sender, governance-token: token-principal}
-			(+ (get-current-total-votes proposal tx-sender token-principal) amount)
+		(map-set member-total-votes {for: for, proposal: proposal, voter: tx-sender, governance-token: token-principal}
+			(+ (get-current-votes for proposal tx-sender token-principal) amount)
 		)
 		(map-set proposals proposal
 			(if for
@@ -144,11 +162,14 @@
 			(proposal-principal (contract-of proposal))
 			(token-principal (contract-of governance-token))
 			(proposal-data (unwrap! (map-get? proposals proposal-principal) err-unknown-proposal))
-			(votes (unwrap! (map-get? member-total-votes {proposal: proposal-principal, voter: tx-sender, governance-token: token-principal}) err-no-votes-to-return))
+			(votes-yae (default-to u0 (map-get? member-total-votes {for: true, proposal: proposal-principal, voter: tx-sender, governance-token: token-principal})))
+			(votes-nae (default-to u0 (map-get? member-total-votes {for: false, proposal: proposal-principal, voter: tx-sender, governance-token: token-principal})))
 		)
+		(asserts! (> (+ votes-yae votes-nae) u0) err-no-votes-to-return)
 		(asserts! (get concluded proposal-data) err-proposal-not-concluded)
-		(map-delete member-total-votes {proposal: proposal-principal, voter: tx-sender, governance-token: token-principal})
-		(contract-call? governance-token edg-unlock votes tx-sender)
+		(map-delete member-total-votes {for: true, proposal: proposal-principal, voter: tx-sender, governance-token: token-principal})
+		(map-delete member-total-votes {for: false, proposal: proposal-principal, voter: tx-sender, governance-token: token-principal})
+		(contract-call? governance-token edg-unlock (+ votes-yae votes-nae) tx-sender)
 	)
 )
 
@@ -163,4 +184,40 @@
 
 (define-public (callback (sender principal) (memo (buff 34)))
 	(ok true)
+)
+
+;; Rescind by proposal
+
+(define-public (rescind-votes (amount uint) (for bool) (proxy principal) (proposal principal) (governance-token <governance-token-trait>))
+	(let
+		(
+			(proposal-data (unwrap! (map-get? proposals proposal) err-unknown-proposal))
+			(currently-delegating (unwrap! (contract-call? governance-token edg-get-delegating tx-sender proxy) err-unknown-proposal))
+			(token-principal (contract-of governance-token))
+			(proxy-votes (get-current-votes for proposal proxy token-principal))
+			(time-lock (var-get rescind-time-lock))
+			(votes (min-of amount proxy-votes))
+		)
+		(asserts! (not (get concluded proposal-data)) err-proposal-already-concluded)
+		(asserts! (< block-height (- (get end-block-height proposal-data) time-lock)) err-rescind-time-lock-active)
+		(asserts! (<= votes currently-delegating) err-rescinding-more-than-delegated)
+		(asserts! (> votes u0) err-rescinding-more-than-cast)
+		(map-set member-total-votes {for: for, proposal: proposal, voter: proxy, governance-token: token-principal}
+			(- proxy-votes  votes)
+		)
+		(map-set proposals proposal
+			(if for
+				(merge proposal-data {votes-for: (- proxy-votes  votes)})
+				(merge proposal-data {votes-against: (- proxy-votes  votes)})
+			)
+		)
+		(print {event: "rescind", who: tx-sender, proxy: proxy, amount: amount, proposal: proposal, governance-token: token-principal})
+		(try! (contract-call? governance-token edg-unlock votes proxy))
+		(try! (contract-call? governance-token edg-rescind votes proxy))
+		(ok votes)
+	)
+)
+
+(define-private (min-of (i1 uint) (i2 uint))
+    (if (< i1 i2) i1 i2)
 )

@@ -18,9 +18,11 @@ export enum EDE001ProposalVotingErrCode {
   err_proposal_not_concluded=3007,
   err_no_votes_to_return=3008,
   err_end_block_height_not_reached=3009,
-  err_disabled=3010
-  }
-
+  err_disabled=3010,
+  err_rescinding_more_than_delegated=3011,
+  err_rescinding_more_than_cast=3012,
+  err_rescind_time_lock_active=3013
+}
 export class EDE001ProposalVotingClient {
   contractName = "";
   chain: Chain;
@@ -70,6 +72,13 @@ export class EDE001ProposalVotingClient {
       this.contractName,
       "reclaim-votes",
       [types.principal(proposal), types.principal(governanceToken)], txSender);
+  }
+
+  rescindVotes(amount: number, _for: boolean, proxy: string, proposal: string, governanceToken: string, txSender: string): Tx {
+    return Tx.contractCall(
+      this.contractName,
+      "rescind-votes",
+      [types.uint(amount), types.bool(_for), types.principal(proxy), types.principal(proposal), types.principal(governanceToken)], txSender);
   }
 
   conclude(proposal: string, txSender: string): Tx {

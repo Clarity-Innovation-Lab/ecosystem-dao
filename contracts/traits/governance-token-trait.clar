@@ -1,5 +1,8 @@
 (define-trait governance-token-trait
 	(
+		(edg-rescind (uint principal) (response uint uint))
+		(edg-get-delegating (principal principal) (response uint uint))
+		(edg-get-total-delegated (principal) (response uint uint))
 		(edg-get-balance (principal) (response uint uint))
 		(edg-has-percentage-balance (principal uint) (response bool uint))
 		(edg-transfer (uint principal principal) (response bool uint))

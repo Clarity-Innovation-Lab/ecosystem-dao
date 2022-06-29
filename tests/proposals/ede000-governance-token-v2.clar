@@ -13,6 +13,9 @@
 (impl-trait .extension-trait.extension-trait)
 
 (define-constant err-unauthorised (err u3000))
+(define-constant err-insufficient-balance-to-rescind (err u3001))
+(define-constant err-rescinding-more-than-delegated (err u3002))
+(define-constant err-insufficient-undelegated-tokens (err u3003))
 (define-constant err-not-token-owner (err u4))
 
 (define-fungible-token edg-token)
@@ -22,6 +25,11 @@
 (define-data-var token-symbol (string-ascii 10) "EDG")
 (define-data-var token-uri (optional (string-utf8 256)) none)
 (define-data-var token-decimals uint u6)
+
+;; tracks total amount delegated to this user by this voter
+(define-map delegation { voter: principal, proxy: principal } uint)
+;; tracks total amount delegated to this user
+(define-map proxy-balance principal uint)
 
 ;; --- Authorisation check
 
@@ -36,6 +44,8 @@
 (define-public (edg-transfer (amount uint) (sender principal) (recipient principal))
 	(begin
 		(try! (is-dao-or-extension))
+		;; not allowed to transfer delegated tokens
+		(asserts! (>= (- (ft-get-balance edg-token sender) (unwrap! (edg-get-total-delegated sender) err-insufficient-undelegated-tokens)) amount) err-insufficient-undelegated-tokens)
 		(ft-transfer? edg-token amount sender recipient)
 	)
 )
@@ -119,6 +129,8 @@
 (define-public (transfer (amount uint) (sender principal) (recipient principal) (memo (optional (buff 34))))
 	(begin
 		(asserts! (or (is-eq tx-sender sender) (is-eq contract-caller sender)) err-not-token-owner)
+		;; not allowed to transfer delegated tokens
+		(asserts! (>= (- (ft-get-balance edg-token sender) (unwrap! (edg-get-total-delegated sender) err-insufficient-undelegated-tokens)) amount) err-insufficient-undelegated-tokens)
 		(ft-transfer? edg-token amount sender recipient)
 	)
 )
@@ -165,4 +177,43 @@
 
 (define-public (callback (sender principal) (memo (buff 34)))
 	(ok true)
+)
+
+(define-public (edg-rescind (amount uint) (proxy principal))
+	(let
+		(
+			(currently-delegating (unwrap! (edg-get-delegating tx-sender proxy) err-insufficient-balance-to-rescind))
+			(balance (unwrap! (edg-get-total-delegated proxy) err-insufficient-undelegated-tokens))
+			(available (min-of amount (ft-get-balance edg-token proxy)))
+		)
+		(asserts! (<= available currently-delegating) err-rescinding-more-than-delegated)
+		(asserts! (<= available balance) err-insufficient-balance-to-rescind)
+		(map-set proxy-balance proxy (- balance available))
+		(map-set delegation {voter: tx-sender, proxy: proxy} (- currently-delegating available))
+		(try! (ft-transfer? edg-token available proxy tx-sender))
+		(ok available)
+	)
+)
+
+(define-public (edg-delegate (amount uint) (proxy principal))
+	(let
+		(
+			(currently-delegating (unwrap! (edg-get-delegating tx-sender proxy) err-insufficient-balance-to-rescind))
+			(balance (unwrap! (edg-get-total-delegated proxy) err-insufficient-undelegated-tokens))
+		)
+		(map-set proxy-balance proxy (+ balance amount))
+		(map-set delegation {voter: tx-sender, proxy: proxy} (+ amount currently-delegating))
+		(try! (transfer amount tx-sender proxy none ))
+		(ok true)
+	)
+)
+
+(define-private (min-of (i1 uint) (i2 uint))
+    (if (< i1 i2) i1 i2)
+)
+(define-read-only (edg-get-delegating (voter principal) (proxy principal))
+	(ok (default-to u0 (map-get? delegation {voter: voter, proxy: proxy})))
+)
+(define-read-only (edg-get-total-delegated (proxy principal))
+	(ok (default-to u0 (map-get? proxy-balance proxy)))
 )
