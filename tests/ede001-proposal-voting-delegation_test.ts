@@ -414,7 +414,7 @@ Clarinet.test({
       ward,
       contractEDE000,
       contractEDP000,
-      contractEDP003, contractEDP004, contractEDP005,
+      contractEDP003,
       ede000GovernanceTokenClient,
       ede001ProposalVotingClient,
       ede002ProposalSubmissionClient
@@ -448,9 +448,9 @@ Clarinet.test({
     ede000GovernanceTokenClient.edgGetLocked(daisy.address).result.expectOk().expectUint(0)
     ede000GovernanceTokenClient.edgGetLocked(ward.address).result.expectOk().expectUint(500)
 
-    assertProposal(false, false, 500, 0, 146, 1586, phil.address, contractEDP003, ede001ProposalVotingClient)
+    assertProposal(false, false, 500, 0, 147, 1587, phil.address, contractEDP003, ede001ProposalVotingClient)
 
-		chain.mineEmptyBlockUntil(1586 - 289);
+		chain.mineEmptyBlockUntil(1586 - 288);
 
     block = chain.mineBlock([
       ede001ProposalVotingClient.rescindVotes(10, true, ward.address, contractEDP003, contractEDE000, ward.address),
