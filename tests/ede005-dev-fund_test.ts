@@ -17,9 +17,9 @@ const attemptClaim = (i: number, amount: number, chain: Chain, block: any, toHei
     ede005DevFundClient.claim('I can claim the funds', address),
   ]);
   block.receipts[0].result.expectOk().expectBool(expect)
-  // let maxClaims = ede005DevFundClient.getMaxClaims().result
   ede005DevFundClient.getDeveloperClaimCount(address).result.expectUint(i)
-  assert(block.receipts[0].events[0].ft_transfer_event.amount == amount)
+  assert(block.receipts[0].events[0].contract_event.value == '0x492063616e20636c61696d207468652066756e6473')
+  assert(block.receipts[0].events[1].ft_transfer_event.amount == amount)
 }
 
 Clarinet.test({
