@@ -1,5 +1,5 @@
 
-import { types, Clarinet, Chain, Account } from "https://deno.land/x/clarinet@v0.28.1/index.ts";
+import { types, Clarinet, Chain, Account } from "https://deno.land/x/clarinet@v0.31.1/index.ts";
 import { assert, assertEquals } from 'https://deno.land/std@0.90.0/testing/asserts.ts';
 import { EDE002ProposalSubmissionClient } from "./src/ede002-proposal-submission-client.ts";
 import { EDE001ProposalVotingClient, EDE001ProposalVotingErrCode } from "./src/ede001-proposal-voting-client.ts";
@@ -448,9 +448,9 @@ Clarinet.test({
     ede000GovernanceTokenClient.edgGetLocked(daisy.address).result.expectOk().expectUint(0)
     ede000GovernanceTokenClient.edgGetLocked(ward.address).result.expectOk().expectUint(500)
 
-    assertProposal(false, false, 500, 0, 146, 1586, phil.address, contractEDP003, ede001ProposalVotingClient)
+    assertProposal(false, false, 500, 0, 147, 1587, phil.address, contractEDP003, ede001ProposalVotingClient)
 
-		chain.mineEmptyBlockUntil(1586 - 289);
+		chain.mineEmptyBlockUntil(1586 - 288);
 
     block = chain.mineBlock([
       ede001ProposalVotingClient.rescindVotes(10, true, ward.address, contractEDP003, contractEDE000, ward.address),

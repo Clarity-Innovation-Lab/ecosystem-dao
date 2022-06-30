@@ -1,5 +1,5 @@
 
-import { Clarinet, Chain, Account } from "https://deno.land/x/clarinet@v0.28.1/index.ts";
+import { Clarinet, Chain, Account } from "https://deno.land/x/clarinet@v0.31.1/index.ts";
 import { ExecutorDaoErrCode } from "./src/executor-dao-client.ts";
 import { EDE004EmergencyExecuteErrCode } from "./src/ede004-emergency-execute-client.ts";
 import { Utils } from "./src/utils.ts";
@@ -10,7 +10,7 @@ Clarinet.test({
   name: "Ensure extension parameters cannot be changed without authority.",
   fn(chain: Chain, accounts: Map<string, Account>) {
     const {
-      deployer, 
+      deployer,
       exeDaoClient,
       bobby,
       contractEDP000,

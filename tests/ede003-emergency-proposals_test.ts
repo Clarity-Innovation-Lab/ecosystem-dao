@@ -1,5 +1,5 @@
 
-import { Clarinet, Chain, Account } from "https://deno.land/x/clarinet@v0.28.1/index.ts";
+import { Clarinet, Chain, Account } from "https://deno.land/x/clarinet@v0.31.1/index.ts";
 import { EDE003EmergencyProposalsErrCode } from "./src/ede003-emergency-proposals-client.ts";
 import { Utils } from "./src/utils.ts";
 
