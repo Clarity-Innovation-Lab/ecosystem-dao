@@ -1,4 +1,4 @@
-import { Clarinet, Chain, Account } from "https://deno.land/x/clarinet@v0.28.1/index.ts";
+import { Clarinet, Chain, Account } from "https://deno.land/x/clarinet@v0.31.1/index.ts";
 
 const setup = (accounts: Map<string, Account>): {
   administrator: Account;
