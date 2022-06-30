@@ -1,5 +1,5 @@
 
-import { Tx, Clarinet, Chain, Account } from "https://deno.land/x/clarinet@v0.28.1/index.ts";
+import { Tx, Clarinet, Chain, Account } from "https://deno.land/x/clarinet@v0.31.1/index.ts";
 import { Utils } from "./src/utils.ts";
 import { EDE006TreasuryErrCode } from "./src/ede006-treasury-client.ts";
 import { assert } from "https://deno.land/std@0.90.0/testing/asserts.ts";

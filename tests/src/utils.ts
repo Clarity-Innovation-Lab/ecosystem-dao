@@ -1,7 +1,7 @@
 import {
   Chain,
   Account
-} from "https://deno.land/x/clarinet@v0.28.1/index.ts";
+} from "https://deno.land/x/clarinet@v0.31.1/index.ts";
 import { ExecutorDaoClient } from "./executor-dao-client.ts";
 import { EDP000BootstrapClient } from "./edp000-bootstrap-client.ts";
 import { EDE000GovernanceTokenClient } from "./ede000-governance-token-client.ts";

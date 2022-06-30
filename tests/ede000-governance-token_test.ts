@@ -1,5 +1,5 @@
 
-import { Clarinet, Chain, Account } from "https://deno.land/x/clarinet@v0.28.1/index.ts";
+import { Clarinet, Chain, Account } from "https://deno.land/x/clarinet@v0.31.1/index.ts";
 import { ExecutorDaoClient } from "./src/executor-dao-client.ts";
 import { EDE000GovernanceTokenClient, EDE000GovernanceTokenErrCode } from "./src/ede000-governance-token-client.ts";
 import { EDE001ProposalVotingClient } from "./src/ede001-proposal-voting-client.ts";
