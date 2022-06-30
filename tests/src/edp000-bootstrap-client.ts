@@ -4,7 +4,7 @@ import {
   Account,
   types,
   ReadOnlyFn,
-} from "https://deno.land/x/clarinet@v0.28.1/index.ts";
+} from "https://deno.land/x/clarinet@v0.31.1/index.ts";
 
 export enum EDP000BootstrapErrCode {
   err_unauthorised=3000
