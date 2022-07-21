@@ -10,6 +10,8 @@ import { EDE002ProposalSubmissionClient } from "./ede002-proposal-submission-cli
 import { EDE003EmergencyProposalsClient } from "./ede003-emergency-proposals-client.ts";
 import { EDE004EmergencyExecuteClient } from "./ede004-emergency-execute-client.ts";
 import { EDE005DevFundClient } from "./ede005-dev-fund-client.ts";
+import { EDE007SnapshotProposalVotingClient } from "./ede007-snapshot-proposal-voting-client.ts";
+import { EDE008CrowdfundedProposalSubmissionClient } from "./ede008-crowdfunded-proposal-submission-client.ts";
 import { NftEscrowClient } from "./nft-escrow-client.ts";
 import { NftClient } from "./nft-client.ts";
 
@@ -90,6 +92,8 @@ export class Utils {
     contractEDE003: string;
     contractEDE004: string;
     contractEDE005: string;
+    contractEDE007: string;
+    contractEDE008: string;
     contractNftEscrow: string;
     contractNft: string;
     exeDaoClient: ExecutorDaoClient;
@@ -100,6 +104,8 @@ export class Utils {
     ede003EmergencyProposalsClient: EDE003EmergencyProposalsClient;
     ede004EmergencyExecuteClient: EDE004EmergencyExecuteClient;
     ede005DevFundClient: EDE005DevFundClient;
+    ede007SnapshotProposalVotingClient: EDE007SnapshotProposalVotingClient;
+    ede008CrowdfundedProposalSubmissionClient: EDE008CrowdfundedProposalSubmissionClient;
     nftEscrowClient: NftEscrowClient;
     nftClient: NftClient;
   } => {
@@ -123,6 +129,8 @@ export class Utils {
     const contractEDE003 = accounts.get("deployer")!.address + '.ede003-emergency-proposals';
     const contractEDE004 = accounts.get("deployer")!.address + '.ede004-emergency-execute';
     const contractEDE005 = accounts.get("deployer")!.address + '.ede005-dev-fund';
+    const contractEDE007 = accounts.get("deployer")!.address + '.ede007-snapshot-proposal-voting';
+    const contractEDE008 = accounts.get("deployer")!.address + '.ede008-crowdfunded-proposal-submission';
     const contractNftEscrow = accounts.get("deployer")!.address + '.nft-escrow';
     const contractNft = accounts.get("deployer")!.address + '.sip009-nft';
     const phil = accounts.get("wallet_1")!;
@@ -138,6 +146,8 @@ export class Utils {
     const ede003EmergencyProposalsClient = new EDE003EmergencyProposalsClient(chain, deployer, 'ede003-emergency-proposals');
     const ede004EmergencyExecuteClient = new EDE004EmergencyExecuteClient(chain, deployer, 'ede004-emergency-execute');
     const ede005DevFundClient = new EDE005DevFundClient(chain, deployer, 'ede005-dev-fund');
+    const ede007SnapshotProposalVotingClient = new EDE007SnapshotProposalVotingClient(chain, deployer, 'ede007-snapshot-proposal-voting');
+    const ede008CrowdfundedProposalSubmissionClient = new EDE008CrowdfundedProposalSubmissionClient(chain, deployer, 'ede008-crowdfunded-proposal-submission');
     const nftEscrowClient = new NftEscrowClient(chain, deployer, 'nft-escrow');
     const nftClient = new NftClient(chain, deployer, 'sip009-nft');
     return {
@@ -166,6 +176,8 @@ export class Utils {
         contractEDE003, 
         contractEDE004, 
         contractEDE005, 
+        contractEDE007, 
+        contractEDE008, 
         contractNftEscrow, 
         contractNft, 
         exeDaoClient, 
@@ -176,6 +188,8 @@ export class Utils {
         ede003EmergencyProposalsClient,
         ede004EmergencyExecuteClient,
         ede005DevFundClient,
+        ede007SnapshotProposalVotingClient,
+        ede008CrowdfundedProposalSubmissionClient,
         nftEscrowClient,
         nftClient 
       };

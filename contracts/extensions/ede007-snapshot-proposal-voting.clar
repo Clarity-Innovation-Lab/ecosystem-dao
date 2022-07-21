@@ -1,4 +1,4 @@
-;; Title: EDE006 Snapshot Proposal Voting
+;; Title: EDE007 Snapshot Proposal Voting
 ;; Author: Marvin Janssen
 ;; Depends-On: 
 ;; Synopsis:

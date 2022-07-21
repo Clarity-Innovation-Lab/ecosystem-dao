@@ -14,7 +14,6 @@ Core extensions are discussed in the base project. The following extensions are
 additional
 
 - ede0006-treasury
-- ede0007-governance-token-sale
 
 These contracts will be used to run a small token sale to give everyone the opportunity to
 buy in and to create a small treasury for the DAO.
