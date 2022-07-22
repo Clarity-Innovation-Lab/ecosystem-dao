@@ -33,6 +33,10 @@ depends_on = ["executor-dao", "extension-trait", "ede001-proposal-voting"]
 path = "contracts/extensions/ede005-dev-fund.clar"
 depends_on = ["executor-dao", "extension-trait", "ede000-governance-token"]
 
+[contracts.ede006-treasury]
+path = "contracts/extensions/ede006-treasury.clar"
+depends_on = ["executor-dao", "extension-trait"]
+
 [contracts.ede007-snapshot-proposal-voting]
 path = "contracts/extensions/ede007-snapshot-proposal-voting.clar"
 depends_on = ["executor-dao", "extension-trait"]
@@ -73,13 +77,29 @@ depends_on = ["proposal-trait"]
 path = "tests/proposals/edp006-dao-mint-burn-edg.clar"
 depends_on = ["proposal-trait"]
 
-[contracts.edp008-dao-update-executive]
-path = "tests/proposals/edp008-dao-update-executive.clar"
-depends_on = ["proposal-trait"]
-
 [contracts.edp008-1-allowlist-nft-escrow]
 path = "tests/proposals/edp008-1-allowlist-nft-escrow.clar"
 depends_on = ["proposal-trait"]
+
+[contracts.edp009-enable-treasury]
+path = "tests/proposals/edp009-enable-treasury.clar"
+depends_on = ["proposal-trait"]
+
+[contracts.edp010-transfer-stx-assets]
+path = "tests/proposals/edp010-transfer-stx-assets.clar"
+depends_on = ["proposal-trait"]
+
+[contracts.edp010-transfer-009-assets]
+path = "tests/proposals/edp010-transfer-009-assets.clar"
+depends_on = ["proposal-trait", "sip009-nft"]
+
+[contracts.edp010-transfer-010-assets]
+path = "tests/proposals/edp010-transfer-010-assets.clar"
+depends_on = ["proposal-trait", "sip010-ft-trait"]
+
+[contracts.edp010-transfer-013-assets]
+path = "tests/proposals/edp010-transfer-013-assets.clar"
+depends_on = ["proposal-trait", "sip013-nft"]
 
 [contracts.executor-dao]
 path = "contracts/executor-dao.clar"
@@ -111,6 +131,18 @@ depends_on = ["sip009-nft-trait"]
 
 [contracts.sip009-nft-trait]
 path = "tests/proposals/sip009-nft-trait.clar"
+depends_on = []
+
+[contracts.sip013-nft]
+path = "tests/proposals/sip013-nft.clar"
+depends_on = ["sip013-semi-fungible-token-trait", "sip013-transfer-many-trait"]
+
+[contracts.sip013-semi-fungible-token-trait]
+path = "tests/proposals/sip013-semi-fungible-token-trait.clar"
+depends_on = []
+
+[contracts.sip013-transfer-many-trait]
+path = "tests/proposals/sip013-transfer-many-trait.clar"
 depends_on = []
 
 [contracts.sip010-ft-trait]

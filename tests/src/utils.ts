@@ -10,10 +10,12 @@ import { EDE002ProposalSubmissionClient } from "./ede002-proposal-submission-cli
 import { EDE003EmergencyProposalsClient } from "./ede003-emergency-proposals-client.ts";
 import { EDE004EmergencyExecuteClient } from "./ede004-emergency-execute-client.ts";
 import { EDE005DevFundClient } from "./ede005-dev-fund-client.ts";
+import { EDE006TreasuryClient } from "./ede006-treasury-client.ts";
 import { EDE007SnapshotProposalVotingClient } from "./ede007-snapshot-proposal-voting-client.ts";
 import { EDE008CrowdfundedProposalSubmissionClient } from "./ede008-crowdfunded-proposal-submission-client.ts";
 import { NftEscrowClient } from "./nft-escrow-client.ts";
 import { NftClient } from "./nft-client.ts";
+import { SftClient } from "./sft-client.ts";
 
 export class Utils {
   constructor() {}
@@ -85,6 +87,11 @@ export class Utils {
     contractEDP006: string;
     contractEDP007: string;
     contractEDP008_1: string;
+    contractEDP009: string;
+    contractEDP010: string;
+    contractEDP011: string;
+    contractEDP012: string;
+    contractEDP013: string;
     contractEDE000: string;
     contractEDE000_1: string;
     contractEDE001: string;
@@ -92,10 +99,12 @@ export class Utils {
     contractEDE003: string;
     contractEDE004: string;
     contractEDE005: string;
+    contractEDE006: string;
     contractEDE007: string;
     contractEDE008: string;
     contractNftEscrow: string;
     contractNft: string;
+    contractSft: string;
     exeDaoClient: ExecutorDaoClient;
     edp000BootstrapClient: EDP000BootstrapClient;
     ede000GovernanceTokenClient: EDE000GovernanceTokenClient;
@@ -104,10 +113,12 @@ export class Utils {
     ede003EmergencyProposalsClient: EDE003EmergencyProposalsClient;
     ede004EmergencyExecuteClient: EDE004EmergencyExecuteClient;
     ede005DevFundClient: EDE005DevFundClient;
+    ede006TreasuryClient: EDE006TreasuryClient;
     ede007SnapshotProposalVotingClient: EDE007SnapshotProposalVotingClient;
     ede008CrowdfundedProposalSubmissionClient: EDE008CrowdfundedProposalSubmissionClient;
     nftEscrowClient: NftEscrowClient;
     nftClient: NftClient;
+    sftClient: SftClient;
   } => {
     const administrator = accounts.get("deployer")!;
     const deployer = accounts.get("deployer")!;
@@ -122,6 +133,11 @@ export class Utils {
     const contractEDP006 = accounts.get("deployer")!.address + '.edp006-dao-mint-burn-edg';
     const contractEDP007 = accounts.get("deployer")!.address + '.edp007-dao-update-executive';
     const contractEDP008_1 = accounts.get("deployer")!.address + '.edp008-1-allowlist-nft-escrow';
+    const contractEDP009 = accounts.get("deployer")!.address + '.edp009-enable-treasury';
+    const contractEDP010 = accounts.get("deployer")!.address + '.edp010-transfer-stx-assets';
+    const contractEDP011 = accounts.get("deployer")!.address + '.edp010-transfer-009-assets';
+    const contractEDP012 = accounts.get("deployer")!.address + '.edp010-transfer-010-assets';
+    const contractEDP013 = accounts.get("deployer")!.address + '.edp010-transfer-013-assets';
     const contractEDE000 = accounts.get("deployer")!.address + '.ede000-governance-token';
     const contractEDE000_1 = accounts.get("deployer")!.address + '.ede000-governance-token-v2';
     const contractEDE001 = accounts.get("deployer")!.address + '.ede001-proposal-voting';
@@ -129,10 +145,12 @@ export class Utils {
     const contractEDE003 = accounts.get("deployer")!.address + '.ede003-emergency-proposals';
     const contractEDE004 = accounts.get("deployer")!.address + '.ede004-emergency-execute';
     const contractEDE005 = accounts.get("deployer")!.address + '.ede005-dev-fund';
+    const contractEDE006 = accounts.get("deployer")!.address + '.ede006-treasury';
     const contractEDE007 = accounts.get("deployer")!.address + '.ede007-snapshot-proposal-voting';
     const contractEDE008 = accounts.get("deployer")!.address + '.ede008-crowdfunded-proposal-submission';
     const contractNftEscrow = accounts.get("deployer")!.address + '.nft-escrow';
     const contractNft = accounts.get("deployer")!.address + '.sip009-nft';
+    const contractSft = accounts.get("deployer")!.address + '.sip013-nft';
     const phil = accounts.get("wallet_1")!;
     const daisy = accounts.get("wallet_2")!;
     const bobby = accounts.get("wallet_3")!;
@@ -146,10 +164,12 @@ export class Utils {
     const ede003EmergencyProposalsClient = new EDE003EmergencyProposalsClient(chain, deployer, 'ede003-emergency-proposals');
     const ede004EmergencyExecuteClient = new EDE004EmergencyExecuteClient(chain, deployer, 'ede004-emergency-execute');
     const ede005DevFundClient = new EDE005DevFundClient(chain, deployer, 'ede005-dev-fund');
+    const ede006TreasuryClient = new EDE006TreasuryClient(chain, deployer, 'ede006-treasury');
     const ede007SnapshotProposalVotingClient = new EDE007SnapshotProposalVotingClient(chain, deployer, 'ede007-snapshot-proposal-voting');
     const ede008CrowdfundedProposalSubmissionClient = new EDE008CrowdfundedProposalSubmissionClient(chain, deployer, 'ede008-crowdfunded-proposal-submission');
     const nftEscrowClient = new NftEscrowClient(chain, deployer, 'nft-escrow');
     const nftClient = new NftClient(chain, deployer, 'sip009-nft');
+    const sftClient = new SftClient(chain, deployer, 'sip013-nft');
     return {
         administrator, 
         deployer, 
@@ -169,6 +189,11 @@ export class Utils {
         contractEDP006,
         contractEDP007,
         contractEDP008_1,
+        contractEDP009,
+        contractEDP010,
+        contractEDP011,
+        contractEDP012,
+        contractEDP013,
         contractEDE000, 
         contractEDE000_1, 
         contractEDE001, 
@@ -176,10 +201,12 @@ export class Utils {
         contractEDE003, 
         contractEDE004, 
         contractEDE005, 
+        contractEDE006, 
         contractEDE007, 
         contractEDE008, 
         contractNftEscrow, 
         contractNft, 
+        contractSft,
         exeDaoClient, 
         edp000BootstrapClient,
         ede000GovernanceTokenClient, 
@@ -188,10 +215,12 @@ export class Utils {
         ede003EmergencyProposalsClient,
         ede004EmergencyExecuteClient,
         ede005DevFundClient,
+        ede006TreasuryClient,
         ede007SnapshotProposalVotingClient,
         ede008CrowdfundedProposalSubmissionClient,
         nftEscrowClient,
-        nftClient 
+        nftClient,
+        sftClient 
       };
   };
 }

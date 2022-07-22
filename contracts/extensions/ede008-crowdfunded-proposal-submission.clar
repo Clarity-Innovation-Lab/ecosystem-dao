@@ -39,8 +39,7 @@
 		start-block-height: uint,
 		end-block-height: uint,
 		proposer: principal,
-		amount: uint,
-		voting-extension: principal
+		amount: uint
 	}
 )
 
@@ -87,17 +86,16 @@
 
 ;; Proposals
 
-(define-public (propose (proposal <proposal-trait>) (voting-extension <extension-trait>) (start-block-height uint))
+(define-public (propose (proposal <proposal-trait>) (start-block-height uint))
 	(begin
-        (asserts! (as-contract (contract-call? .executor-dao is-extension (contract-of voting-extension))) err-voting-extension-not-valid)
 		(asserts! (>= start-block-height (+ block-height (try! (get-parameter "minimum-proposal-start-delay")))) err-proposal-minimum-start-delay)
 		(asserts! (<= start-block-height (+ block-height (try! (get-parameter "maximum-proposal-start-delay")))) err-proposal-maximum-start-delay)
-		;;(asserts! (is-none (map-get? draft-proposals (contract-of proposal))) err-draft-proposal-already-exists)
-		(ok (asserts! (map-insert draft-proposals (contract-of proposal) { start-block-height: start-block-height, 
+		(ok (asserts! (map-insert draft-proposals (contract-of proposal) 
+			{ 
+				start-block-height: start-block-height, 
 				end-block-height: (+ start-block-height (try! (get-parameter "proposal-duration"))), 
 				proposer: tx-sender,
-				amount: u0,
-				voting-extension: (contract-of voting-extension)
+				amount: u0
 			}
 		) err-draft-proposal-already-exists))
 	)
@@ -107,27 +105,27 @@
 	(let
 		(
 			(proposal-data (unwrap! (map-get? draft-proposals (contract-of proposal)) err-unknown-proposal))
+			(start-block-height (get start-block-height proposal-data))
 			(new-amount (+ amount (get amount proposal-data)))
 			(propose-factor (try! (get-parameter "propose-factor")))
 		)
 		(asserts! (< block-height (get start-block-height proposal-data)) err-draft-proposal-already-started)
 		(map-set draft-proposals (contract-of proposal) (merge proposal-data {amount: new-amount}))
-		(stx-transfer? amount tx-sender .ede006-treasury)
+		(try! (stx-transfer? amount tx-sender .ede006-treasury))
 		(if (>= new-amount propose-factor)
-			(begin 
-				(contract-call? (get voting-extension proposal-data) add-proposal
+			(begin
+				(map-delete draft-proposals (contract-of proposal))
+				(try! (contract-call? .ede007-snapshot-proposal-voting add-proposal
 					proposal
 					{
 						start-block-height: start-block-height,
 						end-block-height: (+ start-block-height (try! (get-parameter "proposal-duration"))),
 						proposer: tx-sender
-					}
-				)
-				(map-delete draft-proposals (contract-of proposal))
-				(ok true)
+					}))
 			)
-			(ok true)
+			true
 		)
+		(ok true)
 	)
 )
 

@@ -53,7 +53,7 @@ Clarinet.test({
     block = chain.mineBlock([
       ede008CrowdfundedProposalSubmissionClient.propose(contractEDP003, contractEDE007, startHeight, phil.address)
     ]);
-    block.receipts[0].result.expectErr().expectUint(ede008CrowdfundedProposalSubmissionErrCode.err_proposal_maximum_start_delay)
+    block.receipts[0].result.expectErr().expectUint(EDE008CrowdfundedProposalSubmissionErrCode.err_proposal_maximum_start_delay)
   }
 });
 
@@ -78,7 +78,7 @@ Clarinet.test({
     block = chain.mineBlock([
       ede008CrowdfundedProposalSubmissionClient.propose(contractEDP003, contractEDE007, startHeight, deployer.address)
     ]);
-    block.receipts[0].result.expectErr().expectUint(ede008CrowdfundedProposalSubmissionErrCode.err_not_governance_token)
+    block.receipts[0].result.expectErr().expectUint(EDE008CrowdfundedProposalSubmissionErrCode.err_not_governance_token)
   }
 });
 
@@ -106,7 +106,7 @@ Clarinet.test({
       ede008CrowdfundedProposalSubmissionClient.propose(contractEDP003, contractEDE007, startHeight, ward.address),
       ede008CrowdfundedProposalSubmissionClient.propose(contractEDP003, contractEDE007, startHeight, hunter.address)
     ]);
-    block.receipts[0].result.expectErr().expectUint(ede008CrowdfundedProposalSubmissionErrCode.err_insufficient_balance)
+    block.receipts[0].result.expectErr().expectUint(EDE008CrowdfundedProposalSubmissionErrCode.err_insufficient_balance)
     block.receipts[1].result.expectOk().expectBool(true)
   }
 });
@@ -125,7 +125,7 @@ Clarinet.test({
       exeDaoClient.construct(contractEDP000, deployer.address),
     ]);
     block.receipts[0].result.expectOk().expectBool(true)
-    ede008CrowdfundedProposalSubmissionClient.getParameter("some-param").result.expectErr().expectUint(ede008CrowdfundedProposalSubmissionErrCode.err_unknown_parameter)
+    ede008CrowdfundedProposalSubmissionClient.getParameter("some-param").result.expectErr().expectUint(EDE008CrowdfundedProposalSubmissionErrCode.err_unknown_parameter)
     ede008CrowdfundedProposalSubmissionClient.getParameter("propose-factor").result.expectOk().expectUint(100000)
     ede008CrowdfundedProposalSubmissionClient.getParameter("proposal-duration").result.expectOk().expectUint(1440)
     ede008CrowdfundedProposalSubmissionClient.getParameter("minimum-proposal-start-delay").result.expectOk().expectUint(144)
