@@ -17,7 +17,6 @@ const assertProposal = (
   bobby: Account, 
   ward: Account, 
   daisy: Account, 
-  contractEDE000: string, 
   proposal: string, 
   ede002ProposalSubmissionClient: EDE002ProposalSubmissionClient,
   ede000GovernanceTokenClient: EDE000GovernanceTokenClient,
@@ -30,14 +29,14 @@ const assertProposal = (
     const propStartDelay = 144
     const startHeight = block.height + propStartDelay
     block = chain.mineBlock([
-      ede002ProposalSubmissionClient.propose(proposal, startHeight, contractEDE000, phil.address),
+      ede002ProposalSubmissionClient.propose(proposal, startHeight, phil.address),
     ]);
     block.receipts[0].result.expectOk().expectBool(true)
 
     chain.mineEmptyBlock(startHeight + 1);
 
     block = chain.mineBlock([
-      ede001ProposalVotingClient.vote(500, true, proposal, contractEDE000, bobby.address)
+      ede001ProposalVotingClient.vote(500, true, proposal, bobby.address)
     ]);
     block.receipts[0].result.expectOk().expectBool(true)
     
@@ -294,14 +293,14 @@ Clarinet.test({
       const propStartDelay = 144
       const startHeight = block.height + propStartDelay
       block = chain.mineBlock([
-        ede002ProposalSubmissionClient.propose(contractEDP004, startHeight, contractEDE000, phil.address),
+        ede002ProposalSubmissionClient.propose(contractEDP004, startHeight, phil.address),
       ]);
       block.receipts[0].result.expectOk().expectBool(true)
   
       chain.mineEmptyBlock(startHeight + 1);
   
       block = chain.mineBlock([
-        ede001ProposalVotingClient.vote(500, true, contractEDP004, contractEDE000, bobby.address)
+        ede001ProposalVotingClient.vote(500, true, contractEDP004, bobby.address)
       ]);
       block.receipts[0].result.expectOk().expectBool(true)
       

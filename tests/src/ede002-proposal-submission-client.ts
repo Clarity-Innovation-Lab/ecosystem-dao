@@ -31,26 +31,11 @@ export class EDE002ProposalSubmissionClient {
     return this.callReadOnlyFn("get-parameter", [types.ascii(parameter)]);
   }
 
-  getGovernanceToken(): ReadOnlyFn {
-    return this.callReadOnlyFn("get-governance-token", []);
-  }
-
-  isGovernanceToken(governanceToken: string): ReadOnlyFn {
-    return this.callReadOnlyFn("is-governance-token", [types.principal(governanceToken)]);
-  }
-
-  setGovernanceToken(governanceToken: string, txSender: string): Tx {
-    return Tx.contractCall(
-      this.contractName,
-      "set-governance-token",
-      [types.principal(governanceToken)], txSender);
-  }
-
-  propose(proposal: string, startBlockHeight: number, governanceToken: string, txSender: string): Tx {
+  propose(proposal: string, startBlockHeight: number, txSender: string): Tx {
     return Tx.contractCall(
       this.contractName,
       "propose",
-      [types.principal(proposal), types.uint(startBlockHeight), types.principal(governanceToken)], txSender);
+      [types.principal(proposal), types.uint(startBlockHeight)], txSender);
   }
 
   private callReadOnlyFn(

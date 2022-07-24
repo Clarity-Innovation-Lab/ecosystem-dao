@@ -32,44 +32,33 @@ export class EDE001ProposalVotingClient {
     this.deployer = deployer;
   }
   
-  getCurrentTotalVotes(proposal: string, voter: string, governanceToken: string): ReadOnlyFn {
-    return this.callReadOnlyFn("get-current-total-votes", [types.principal(proposal), types.principal(voter), types.principal(governanceToken)]);
+  getCurrentTotalVotes(proposal: string, voter: string): ReadOnlyFn {
+    return this.callReadOnlyFn("get-current-total-votes", [types.principal(proposal), types.principal(voter)]);
   }
 
   getProposalData(proposal: string): ReadOnlyFn {
     return this.callReadOnlyFn("get-proposal-data", [types.principal(proposal)]);
   }
 
-  getGovernanceToken(): ReadOnlyFn {
-    return this.callReadOnlyFn("get-governance-token", []);
-  }
-
-  vote(amount: number, _for: boolean, proposal: string, governanceToken: string, txSender: string): Tx {
+  vote(amount: number, _for: boolean, proposal: string, txSender: string): Tx {
     return Tx.contractCall(
       this.contractName,
       "vote",
-      [types.uint(amount), types.bool(_for), types.principal(proposal), types.principal(governanceToken)], txSender);
+      [types.uint(amount), types.bool(_for), types.principal(proposal)], txSender);
   }
 
-  setGovernanceToken(governanceToken: string, txSender: string): Tx {
-    return Tx.contractCall(
-      this.contractName,
-      "set-governance-token",
-      [types.principal(governanceToken)], txSender);
-  }
-
-  reclaimAndVote(amount: number, _for: boolean, proposal: string, reclaimFrom: string, governanceToken: string, txSender: string): Tx {
+  reclaimAndVote(amount: number, _for: boolean, proposal: string, reclaimFrom: string, txSender: string): Tx {
     return Tx.contractCall(
       this.contractName,
       "reclaim-and-vote",
-      [types.uint(amount), types.bool(_for), types.principal(proposal), types.principal(reclaimFrom), types.principal(governanceToken)], txSender);
+      [types.uint(amount), types.bool(_for), types.principal(proposal), types.principal(reclaimFrom)], txSender);
   }
 
-  reclaimVotes(proposal: string, governanceToken: string, txSender: string): Tx {
+  reclaimVotes(proposal: string, txSender: string): Tx {
     return Tx.contractCall(
       this.contractName,
       "reclaim-votes",
-      [types.principal(proposal), types.principal(governanceToken)], txSender);
+      [types.principal(proposal)], txSender);
   }
 
   conclude(proposal: string, txSender: string): Tx {

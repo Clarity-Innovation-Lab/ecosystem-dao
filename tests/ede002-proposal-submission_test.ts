@@ -25,7 +25,7 @@ Clarinet.test({
 
     const startHeight = block.height + 143
     block = chain.mineBlock([
-      ede002ProposalSubmissionClient.propose(contractEDP003, startHeight, contractEDE000, phil.address)
+      ede002ProposalSubmissionClient.propose(contractEDP003, startHeight, phil.address)
     ]);
     block.receipts[0].result.expectErr().expectUint(EDE002ProposalSubmissionErrCode.err_proposal_minimum_start_delay)
   }
@@ -51,7 +51,7 @@ Clarinet.test({
 
     const startHeight = block.height + 2000
     block = chain.mineBlock([
-      ede002ProposalSubmissionClient.propose(contractEDP003, startHeight, contractEDE000, phil.address)
+      ede002ProposalSubmissionClient.propose(contractEDP003, startHeight, phil.address)
     ]);
     block.receipts[0].result.expectErr().expectUint(EDE002ProposalSubmissionErrCode.err_proposal_maximum_start_delay)
   }
@@ -63,42 +63,13 @@ Clarinet.test({
     const {
       deployer,
       exeDaoClient,
-      contractEDE000_1,
       contractEDP000,
-      ede002ProposalSubmissionClient
     } = utils.setup(chain, accounts)
 
-    let block = chain.mineBlock([
-      exeDaoClient.construct(contractEDP000, deployer.address),
-      ede002ProposalSubmissionClient.setGovernanceToken(contractEDE000_1, deployer.address)
-    ]);
-    block.receipts[0].result.expectOk().expectBool(true)
-    block.receipts[1].result.expectErr().expectUint(EDE002ProposalSubmissionErrCode.err_unauthorised)
-  }
-});
-
-Clarinet.test({
-  name: "Ensure the dao only accepts proposals with the active governance token.",
-  fn(chain: Chain, accounts: Map<string, Account>) {
-    const {
-      deployer,
-      exeDaoClient,
-      contractEDE000_1,
-      contractEDP000,
-      contractEDP003,
-      ede002ProposalSubmissionClient
-    } = utils.setup(chain, accounts)
-
-    let block = chain.mineBlock([
+    const block = chain.mineBlock([
       exeDaoClient.construct(contractEDP000, deployer.address),
     ]);
     block.receipts[0].result.expectOk().expectBool(true)
-
-    const startHeight = block.height + 200
-    block = chain.mineBlock([
-      ede002ProposalSubmissionClient.propose(contractEDP003, startHeight, contractEDE000_1, deployer.address)
-    ]);
-    block.receipts[0].result.expectErr().expectUint(EDE002ProposalSubmissionErrCode.err_not_governance_token)
   }
 });
 
@@ -110,7 +81,6 @@ Clarinet.test({
       hunter,
       ward,
       exeDaoClient,
-      contractEDE000,
       contractEDP000,
       contractEDP003,
       ede002ProposalSubmissionClient
@@ -123,8 +93,8 @@ Clarinet.test({
 
     const startHeight = block.height + 200
     block = chain.mineBlock([
-      ede002ProposalSubmissionClient.propose(contractEDP003, startHeight, contractEDE000, ward.address),
-      ede002ProposalSubmissionClient.propose(contractEDP003, startHeight, contractEDE000, hunter.address)
+      ede002ProposalSubmissionClient.propose(contractEDP003, startHeight, ward.address),
+      ede002ProposalSubmissionClient.propose(contractEDP003, startHeight, hunter.address)
     ]);
     block.receipts[0].result.expectErr().expectUint(EDE002ProposalSubmissionErrCode.err_insufficient_balance)
     block.receipts[1].result.expectOk().expectBool(true)
@@ -141,7 +111,7 @@ Clarinet.test({
       ede002ProposalSubmissionClient
     } = utils.setup(chain, accounts)
 
-    let block = chain.mineBlock([
+    const block = chain.mineBlock([
       exeDaoClient.construct(contractEDP000, deployer.address),
     ]);
     block.receipts[0].result.expectOk().expectBool(true)

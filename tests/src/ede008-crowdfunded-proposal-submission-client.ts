@@ -31,11 +31,11 @@ export class EDE008CrowdfundedProposalSubmissionClient {
     return this.callReadOnlyFn("get-parameter", [types.ascii(parameter)]);
   }
 
-  propose(proposal: string, votingExtension: string, startBlockHeight: number, txSender: string): Tx {
+  propose(proposal: string, startBlockHeight: number, txSender: string): Tx {
     return Tx.contractCall(
       this.contractName,
       "propose",
-      [types.principal(proposal), types.principal(votingExtension), types.uint(startBlockHeight)], txSender);
+      [types.principal(proposal), types.uint(startBlockHeight)], txSender);
   }
 
   fund(proposal: string, amount: number, txSender: string): Tx {

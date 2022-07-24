@@ -33,7 +33,6 @@ export class Utils {
         exeDaoClient,
         phil, bobby, ward,
         contractEDP000, 
-        contractEDE000,
         ede001ProposalVotingClient,
         ede002ProposalSubmissionClient
       } = utils.setup(chain, accounts)
@@ -47,7 +46,7 @@ export class Utils {
       let startHeight = 1
       startHeight = block.height + propStartDelay
       block = chain.mineBlock([
-        ede002ProposalSubmissionClient.propose(proposal, startHeight, contractEDE000, phil.address),
+        ede002ProposalSubmissionClient.propose(proposal, startHeight, phil.address),
       ]);
       block.receipts[0].result.expectOk().expectBool(true)
   
@@ -56,7 +55,7 @@ export class Utils {
       // console.log('Block Height: ' + block.height + ' Start Height: ' + startHeight)
       
       block = chain.mineBlock([
-        ede001ProposalVotingClient.vote(500, true, proposal, contractEDE000, bobby.address)
+        ede001ProposalVotingClient.vote(500, true, proposal, bobby.address)
       ]);
       block.receipts[0].result.expectOk().expectBool(true)
       
