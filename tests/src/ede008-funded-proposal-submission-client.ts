@@ -7,7 +7,7 @@ import {
 } from "https://deno.land/x/clarinet@v0.31.1/index.ts";
 
 
-export enum EDE008CrowdfundedProposalSubmissionErrCode {
+export enum EDE008FundedProposalSubmissionErrCode {
   err_unauthorised=3100,
   err_not_governance_token=3101,
   err_insufficient_balance=3102,
@@ -16,7 +16,7 @@ export enum EDE008CrowdfundedProposalSubmissionErrCode {
   err_proposal_maximum_start_delay=3105
 }
 
-export class EDE008CrowdfundedProposalSubmissionClient {
+export class EDE008FundedProposalSubmissionClient {
   contractName = "";
   chain: Chain;
   deployer: Account;

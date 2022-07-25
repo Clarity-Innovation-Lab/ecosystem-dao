@@ -18,8 +18,8 @@ depends_on = ["executor-dao", "governance-token-trait", "sip010-ft-trait"]
 path = "contracts/extensions/ede001-proposal-voting.clar"
 depends_on = ["executor-dao", "proposal-trait", "extension-trait", "ede000-governance-token"]
 
-[contracts.ede002-proposal-submission]
-path = "contracts/extensions/ede002-proposal-submission.clar"
+[contracts.ede002-threshold-proposal-submission]
+path = "contracts/extensions/ede002-threshold-proposal-submission.clar"
 depends_on = ["executor-dao", "extension-trait", "ede001-proposal-voting"]
 
 [contracts.ede003-emergency-proposals]
@@ -42,8 +42,8 @@ depends_on = ["executor-dao", "extension-trait"]
 path = "contracts/extensions/ede007-snapshot-proposal-voting.clar"
 depends_on = ["executor-dao", "extension-trait"]
 
-[contracts.ede008-crowdfunded-proposal-submission]
-path = "contracts/extensions/ede008-crowdfunded-proposal-submission.clar"
+[contracts.ede008-funded-proposal-submission]
+path = "contracts/extensions/ede008-funded-proposal-submission.clar"
 depends_on = ["executor-dao", "extension-trait"]
 
 [contracts.ede009-governance-token-sale]
@@ -52,7 +52,7 @@ depends_on = ["executor-dao", "extension-trait", "ede000-governance-token", "ede
 
 [contracts.edp000-bootstrap]
 path = "contracts/proposals/edp000-bootstrap.clar"
-depends_on = ["executor-dao", "proposal-trait", "extension-trait", "ede000-governance-token", "ede001-proposal-voting", "ede002-proposal-submission", "ede003-emergency-proposals", "ede004-emergency-execute"]
+depends_on = ["executor-dao", "proposal-trait", "extension-trait", "ede000-governance-token", "ede001-proposal-voting", "ede002-threshold-proposal-submission", "ede003-emergency-proposals", "ede004-emergency-execute"]
 
 [contracts.edp001-1-dev-fund]
 path = "tests/proposals/edp001-1-dev-fund.clar"

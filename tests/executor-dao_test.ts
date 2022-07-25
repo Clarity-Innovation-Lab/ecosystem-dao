@@ -93,7 +93,7 @@ Clarinet.test({
     exeDaoClient.isExtension(deployer.address + '.edp000-bootstrap').result.expectBool(false)
     exeDaoClient.isExtension(deployer.address + '.ede000-governance-token').result.expectBool(true)
     exeDaoClient.isExtension(deployer.address + '.ede001-proposal-voting').result.expectBool(true)
-    exeDaoClient.isExtension(deployer.address + '.ede002-proposal-submission').result.expectBool(true)
+    exeDaoClient.isExtension(deployer.address + '.ede002-threshold-proposal-submission').result.expectBool(true)
     exeDaoClient.isExtension(deployer.address + '.ede003-emergency-proposals').result.expectBool(true)
     exeDaoClient.isExtension(deployer.address + '.ede004-emergency-execute').result.expectBool(true)
     exeDaoClient.isExtension(deployer.address + '.ede005-dev-fund').result.expectBool(false)

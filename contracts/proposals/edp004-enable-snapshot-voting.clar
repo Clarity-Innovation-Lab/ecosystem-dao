@@ -14,5 +14,5 @@
 
 (define-public (execute (sender principal))
 	(try! (contract-call? .executor-dao set-extension .ede007-snapshot-proposal-voting true))
-	(contract-call? .executor-dao set-extension .ede008-crowdfunded-proposal-submission true)
+	(contract-call? .executor-dao set-extension .ede008-funded-proposal-submission true)
 )

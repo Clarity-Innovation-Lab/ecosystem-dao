@@ -13,7 +13,7 @@ Clarinet.test({
       phil,
       contractEDP000, 
       contractEDP003,
-      ede008CrowdfundedProposalSubmissionClient
+      ede008FundedProposalSubmissionClient
     } = utils.setup(chain, accounts)
 
     let block = chain.mineBlock([
@@ -23,9 +23,9 @@ Clarinet.test({
 
     const startHeight = block.height + 143
     block = chain.mineBlock([
-      ede008CrowdfundedProposalSubmissionClient.propose(contractEDP003, startHeight, phil.address)
+      ede008FundedProposalSubmissionClient.propose(contractEDP003, startHeight, phil.address)
     ]);
-    //block.receipts[0].result.expectErr().expectUint(EDE008CrowdfundedProposalSubmissionErrCode.err_proposal_minimum_start_delay)
+    //block.receipts[0].result.expectErr().expectUint(EDE008FundedProposalSubmissionErrCode.err_proposal_minimum_start_delay)
   }
 });
 

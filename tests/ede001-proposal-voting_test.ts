@@ -1,9 +1,9 @@
 
 import { types, Clarinet, Chain, Account } from "https://deno.land/x/clarinet@v0.31.1/index.ts";
-import { assert, assertEquals } from 'https://deno.land/std@0.90.0/testing/asserts.ts';
+import { assertEquals } from 'https://deno.land/std@0.90.0/testing/asserts.ts';
 import { ExecutorDaoErrCode } from "./src/executor-dao-client.ts";
 import { EDE001ProposalVotingClient, EDE001ProposalVotingErrCode } from "./src/ede001-proposal-voting-client.ts";
-import { EDE002ProposalSubmissionClient, EDE002ProposalSubmissionErrCode } from "./src/ede002-proposal-submission-client.ts";
+import { EDE002ProposalSubmissionClient, EDE002ProposalSubmissionErrCode } from "./src/ede002-threshold-proposal-submission-client.ts";
 import { Utils } from "./src/utils.ts";
 
 const utils = new Utils();
@@ -78,7 +78,6 @@ const getDurations = (blockHeight: number, submissionClient: EDE002ProposalSubmi
         exeDaoClient,
         contractEDP000, 
         contractEDP001, 
-        contractEDE001,
         ede001ProposalVotingClient,
         
       } = utils.setup(chain, accounts)
@@ -154,7 +153,6 @@ Clarinet.test({
       contractEDP000, 
       contractEDP002,
       contractEDP003,
-      contractEDE000,
       ede000GovernanceTokenClient,
       ede003EmergencyProposalsClient,
       ede001ProposalVotingClient,
@@ -213,7 +211,6 @@ Clarinet.test({
       phil, bobby,
       contractEDP000, 
       contractEDP003,
-      contractEDE000,
       ede000GovernanceTokenClient,
       ede001ProposalVotingClient,
       ede002ProposalSubmissionClient
@@ -257,7 +254,6 @@ Clarinet.test({
       phil, daisy, bobby,
       contractEDP000, 
       contractEDP003,
-      contractEDE000,
       ede000GovernanceTokenClient,
       ede001ProposalVotingClient,
       ede002ProposalSubmissionClient
@@ -320,7 +316,6 @@ Clarinet.test({
       contractEDP000, 
       contractEDP001,
       contractEDP003,
-      contractEDE000,
       ede000GovernanceTokenClient,
       ede001ProposalVotingClient,
       ede002ProposalSubmissionClient
@@ -381,7 +376,6 @@ Clarinet.test({
       phil, ward,
       contractEDP000, 
       contractEDP001,
-      contractEDE000,
       ede001ProposalVotingClient,
       ede002ProposalSubmissionClient
     } = utils.setup(chain, accounts)
@@ -423,7 +417,6 @@ Clarinet.test({
       contractEDP000, 
       contractEDP001,
       contractEDP003,
-      contractEDE000,
       ede000GovernanceTokenClient,
       ede001ProposalVotingClient,
       ede002ProposalSubmissionClient
@@ -478,7 +471,6 @@ Clarinet.test({
       phil, daisy, bobby, ward,
       contractEDP000, 
       contractEDP001,
-      contractEDE000,
       ede001ProposalVotingClient,
       ede002ProposalSubmissionClient
     } = utils.setup(chain, accounts)
@@ -521,7 +513,6 @@ Clarinet.test({
       phil, bobby, ward,
       contractEDP000, 
       contractEDP001,
-      contractEDE000,
       ede001ProposalVotingClient,
       ede002ProposalSubmissionClient
     } = utils.setup(chain, accounts)
@@ -565,7 +556,6 @@ Clarinet.test({
       phil, bobby,
       contractEDP000, 
       contractEDP001,
-      contractEDE000,
       ede001ProposalVotingClient,
       ede002ProposalSubmissionClient
     } = utils.setup(chain, accounts)
@@ -602,7 +592,6 @@ Clarinet.test({
       phil, bobby, ward,
       contractEDP000, 
       contractEDP001,
-      contractEDE000,
       ede001ProposalVotingClient,
       ede002ProposalSubmissionClient
     } = utils.setup(chain, accounts)
@@ -650,7 +639,6 @@ Clarinet.test({
       contractEDP000, 
       contractEDP001,
       contractEDP002,
-      contractEDE000,
       ede000GovernanceTokenClient,
       ede001ProposalVotingClient,
       ede002ProposalSubmissionClient
@@ -710,7 +698,6 @@ Clarinet.test({
       phil, bobby, ward,
       contractEDP000, 
       contractEDP005,
-      contractEDE000,
       ede001ProposalVotingClient,
       ede002ProposalSubmissionClient,
       ede003EmergencyProposalsClient,

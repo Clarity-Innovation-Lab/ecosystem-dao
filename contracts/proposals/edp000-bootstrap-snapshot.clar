@@ -17,7 +17,7 @@
 				{extension: .ede004-emergency-execute, enabled: true}
 				{extension: .ede006-treasury, enabled: true}
 				{extension: .ede007-snapshot-proposal-voting, enabled: true}
-				{extension: .ede008-crowdfunded-proposal-submission, enabled: true}
+				{extension: .ede008-funded-proposal-submission, enabled: true}
 			)
 		))
 

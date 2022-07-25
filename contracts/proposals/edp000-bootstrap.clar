@@ -18,7 +18,7 @@
 			(list
 				{extension: .ede000-governance-token, enabled: true}
 				{extension: .ede001-proposal-voting, enabled: true}
-				{extension: .ede002-proposal-submission, enabled: true}
+				{extension: .ede002-threshold-proposal-submission, enabled: true}
 				{extension: .ede003-emergency-proposals, enabled: true}
 				{extension: .ede004-emergency-execute, enabled: true}
 			)

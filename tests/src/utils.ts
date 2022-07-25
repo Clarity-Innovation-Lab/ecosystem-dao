@@ -6,13 +6,13 @@ import { ExecutorDaoClient } from "./executor-dao-client.ts";
 import { EDP000BootstrapClient } from "./edp000-bootstrap-client.ts";
 import { EDE000GovernanceTokenClient } from "./ede000-governance-token-client.ts";
 import { EDE001ProposalVotingClient } from "./ede001-proposal-voting-client.ts";
-import { EDE002ProposalSubmissionClient } from "./ede002-proposal-submission-client.ts";
+import { EDE002ProposalSubmissionClient } from "./ede002-threshold-proposal-submission-client.ts";
 import { EDE003EmergencyProposalsClient } from "./ede003-emergency-proposals-client.ts";
 import { EDE004EmergencyExecuteClient } from "./ede004-emergency-execute-client.ts";
 import { EDE005DevFundClient } from "./ede005-dev-fund-client.ts";
 import { EDE006TreasuryClient } from "./ede006-treasury-client.ts";
 import { EDE007SnapshotProposalVotingClient } from "./ede007-snapshot-proposal-voting-client.ts";
-import { EDE008CrowdfundedProposalSubmissionClient } from "./ede008-crowdfunded-proposal-submission-client.ts";
+import { EDE008FundedProposalSubmissionClient } from "./ede008-funded-proposal-submission-client.ts";
 import { EDE009GovernanceTokenSaleClient } from "./ede009-governance-token-sale-client.ts";
 import { NftEscrowClient } from "./nft-escrow-client.ts";
 import { NftClient } from "./nft-client.ts";
@@ -116,7 +116,7 @@ export class Utils {
     ede005DevFundClient: EDE005DevFundClient;
     ede006TreasuryClient: EDE006TreasuryClient;
     ede007SnapshotProposalVotingClient: EDE007SnapshotProposalVotingClient;
-    ede008CrowdfundedProposalSubmissionClient: EDE008CrowdfundedProposalSubmissionClient;
+    ede008FundedProposalSubmissionClient: EDE008FundedProposalSubmissionClient;
     ede009GovernanceTokenSaleClient: EDE009GovernanceTokenSaleClient;
     nftEscrowClient: NftEscrowClient;
     nftClient: NftClient;
@@ -143,13 +143,13 @@ export class Utils {
     const contractEDE000 = accounts.get("deployer")!.address + '.ede000-governance-token';
     const contractEDE000_1 = accounts.get("deployer")!.address + '.ede000-governance-token-v2';
     const contractEDE001 = accounts.get("deployer")!.address + '.ede001-proposal-voting';
-    const contractEDE002 = accounts.get("deployer")!.address + '.ede002-proposal-submission';
+    const contractEDE002 = accounts.get("deployer")!.address + '.ede002-threshold-proposal-submission';
     const contractEDE003 = accounts.get("deployer")!.address + '.ede003-emergency-proposals';
     const contractEDE004 = accounts.get("deployer")!.address + '.ede004-emergency-execute';
     const contractEDE005 = accounts.get("deployer")!.address + '.ede005-dev-fund';
     const contractEDE006 = accounts.get("deployer")!.address + '.ede006-treasury';
     const contractEDE007 = accounts.get("deployer")!.address + '.ede007-snapshot-proposal-voting';
-    const contractEDE008 = accounts.get("deployer")!.address + '.ede008-crowdfunded-proposal-submission';
+    const contractEDE008 = accounts.get("deployer")!.address + '.ede008-funded-proposal-submission';
     const contractEDE009 = accounts.get("deployer")!.address + '.ede009-governance-token-sale';
     const contractNftEscrow = accounts.get("deployer")!.address + '.nft-escrow';
     const contractNft = accounts.get("deployer")!.address + '.sip009-nft';
@@ -163,13 +163,13 @@ export class Utils {
     const edp000BootstrapClient = new EDP000BootstrapClient(chain, deployer, 'edp000-bootstrap');
     const ede000GovernanceTokenClient = new EDE000GovernanceTokenClient(chain, deployer, 'ede000-governance-token');
     const ede001ProposalVotingClient = new EDE001ProposalVotingClient(chain, deployer, 'ede001-proposal-voting');
-    const ede002ProposalSubmissionClient = new EDE002ProposalSubmissionClient(chain, deployer, 'ede002-proposal-submission');
+    const ede002ProposalSubmissionClient = new EDE002ProposalSubmissionClient(chain, deployer, 'ede002-threshold-proposal-submission');
     const ede003EmergencyProposalsClient = new EDE003EmergencyProposalsClient(chain, deployer, 'ede003-emergency-proposals');
     const ede004EmergencyExecuteClient = new EDE004EmergencyExecuteClient(chain, deployer, 'ede004-emergency-execute');
     const ede005DevFundClient = new EDE005DevFundClient(chain, deployer, 'ede005-dev-fund');
     const ede006TreasuryClient = new EDE006TreasuryClient(chain, deployer, 'ede006-treasury');
     const ede007SnapshotProposalVotingClient = new EDE007SnapshotProposalVotingClient(chain, deployer, 'ede007-snapshot-proposal-voting');
-    const ede008CrowdfundedProposalSubmissionClient = new EDE008CrowdfundedProposalSubmissionClient(chain, deployer, 'ede008-crowdfunded-proposal-submission');
+    const ede008FundedProposalSubmissionClient = new EDE008FundedProposalSubmissionClient(chain, deployer, 'ede008-funded-proposal-submission');
     const ede009GovernanceTokenSaleClient = new EDE009GovernanceTokenSaleClient(chain, deployer, 'ede009-governance-token-sale');
     const nftEscrowClient = new NftEscrowClient(chain, deployer, 'nft-escrow');
     const nftClient = new NftClient(chain, deployer, 'sip009-nft');
@@ -222,8 +222,8 @@ export class Utils {
         ede005DevFundClient,
         ede006TreasuryClient,
         ede007SnapshotProposalVotingClient,
-        ede008CrowdfundedProposalSubmissionClient,
         ede009GovernanceTokenSaleClient,
+        ede008FundedProposalSubmissionClient,
         nftEscrowClient,
         nftClient,
         sftClient 
