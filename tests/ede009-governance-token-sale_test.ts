@@ -22,12 +22,12 @@ Clarinet.test({
     fn(chain: Chain, accounts: Map<string, Account>) {
       const {
         contractEDP009,
-        contractEDE007,
+        contractEDE009,
         exeDaoClient
       } = utils.setup(chain, accounts);
   
       utils.passProposal(0, chain, accounts, contractEDP009)
-      exeDaoClient.isExtension(contractEDE007).result.expectBool(true)
+      exeDaoClient.isExtension(contractEDE009).result.expectBool(true)
     }
   });
 
@@ -37,13 +37,13 @@ Clarinet.test({
       const {
         daisy,
         contractEDP009,
-        contractEDE007,
+        contractEDE009,
         exeDaoClient,
         ede009GovernanceTokenSaleClient
       } = utils.setup(chain, accounts);
   
       utils.passProposal(0, chain, accounts, contractEDP009)
-      exeDaoClient.isExtension(contractEDE007).result.expectBool(true)
+      exeDaoClient.isExtension(contractEDE009).result.expectBool(true)
       ede009GovernanceTokenSaleClient.getEndHeight().result.expectNone()
       ede009GovernanceTokenSaleClient.getStartHeight().result.expectNone()
       ede009GovernanceTokenSaleClient.getUnclaimedAllocation(daisy.address).result.expectUint(0)
@@ -56,13 +56,13 @@ Clarinet.test({
       const {
         daisy,
         contractEDP009,
-        contractEDE007,
+        contractEDE009,
         exeDaoClient,
         ede009GovernanceTokenSaleClient
       } = utils.setup(chain, accounts);
   
       utils.passProposal(0, chain, accounts, contractEDP009)
-      exeDaoClient.isExtension(contractEDE007).result.expectBool(true)
+      exeDaoClient.isExtension(contractEDE009).result.expectBool(true)
 
       const block = chain.mineBlock([
         ede009GovernanceTokenSaleClient.buy(1000, daisy.address),
@@ -80,14 +80,14 @@ Clarinet.test({
       const {
         ward,
         contractEDP009,
-        contractEDE007,
+        contractEDE009,
         exeDaoClient,
         ede009GovernanceTokenSaleClient,
         ede000GovernanceTokenClient
       } = utils.setup(chain, accounts);
   
       utils.passProposal(0, chain, accounts, contractEDP009)
-      exeDaoClient.isExtension(contractEDE007).result.expectBool(true)
+      exeDaoClient.isExtension(contractEDE009).result.expectBool(true)
 
       const block = chain.mineBlock([
         ede009GovernanceTokenSaleClient.start(ward.address),
@@ -106,13 +106,13 @@ Clarinet.test({
       const {
         daisy,
         contractEDP009,
-        contractEDE007,
+        contractEDE009,
         exeDaoClient,
         ede009GovernanceTokenSaleClient
       } = utils.setup(chain, accounts);
   
       utils.passProposal(0, chain, accounts, contractEDP009)
-      exeDaoClient.isExtension(contractEDE007).result.expectBool(true)
+      exeDaoClient.isExtension(contractEDE009).result.expectBool(true)
 
       const block = chain.mineBlock([
         ede009GovernanceTokenSaleClient.start(daisy.address),
@@ -131,14 +131,14 @@ Clarinet.test({
         daisy,
         ward,
         contractEDP009,
-        contractEDE007,
+        contractEDE009,
         exeDaoClient,
         ede009GovernanceTokenSaleClient,
         ede000GovernanceTokenClient
       } = utils.setup(chain, accounts);
   
       utils.passProposal(0, chain, accounts, contractEDP009)
-      exeDaoClient.isExtension(contractEDE007).result.expectBool(true)
+      exeDaoClient.isExtension(contractEDE009).result.expectBool(true)
 
       const block = chain.mineBlock([
         ede009GovernanceTokenSaleClient.start(daisy.address),
@@ -162,14 +162,14 @@ Clarinet.test({
         daisy,
         ward,
         contractEDP009,
-        contractEDE007,
+        contractEDE009,
         exeDaoClient,
         ede009GovernanceTokenSaleClient,
         ede000GovernanceTokenClient
       } = utils.setup(chain, accounts);
   
       utils.passProposal(0, chain, accounts, contractEDP009)
-      exeDaoClient.isExtension(contractEDE007).result.expectBool(true)
+      exeDaoClient.isExtension(contractEDE009).result.expectBool(true)
 
       const block = chain.mineBlock([
         ede009GovernanceTokenSaleClient.start(daisy.address),
@@ -199,14 +199,14 @@ Clarinet.test({
         daisy,
         ward,
         contractEDP009,
-        contractEDE007,
+        contractEDE009,
         exeDaoClient,
         ede009GovernanceTokenSaleClient,
         ede000GovernanceTokenClient
       } = utils.setup(chain, accounts);
   
       utils.passProposal(0, chain, accounts, contractEDP009)
-      exeDaoClient.isExtension(contractEDE007).result.expectBool(true)
+      exeDaoClient.isExtension(contractEDE009).result.expectBool(true)
 
       let block = chain.mineBlock([
         ede009GovernanceTokenSaleClient.start(daisy.address),
@@ -249,14 +249,14 @@ Clarinet.test({
         daisy,
         ward,
         contractEDP009,
-        contractEDE007,
+        contractEDE009,
         exeDaoClient,
         ede009GovernanceTokenSaleClient,
         ede000GovernanceTokenClient
       } = utils.setup(chain, accounts);
   
       utils.passProposal(0, chain, accounts, contractEDP009)
-      exeDaoClient.isExtension(contractEDE007).result.expectBool(true)
+      exeDaoClient.isExtension(contractEDE009).result.expectBool(true)
 
       let block = chain.mineBlock([
         ede009GovernanceTokenSaleClient.start(daisy.address),
@@ -291,12 +291,12 @@ Clarinet.test({
     fn(chain: Chain, accounts: Map<string, Account>) {
       const {
         contractEDP009,
-        contractEDE007,
+        contractEDE009,
         exeDaoClient,
       } = utils.setup(chain, accounts);
   
       utils.passProposal(0, chain, accounts, contractEDP009)
-      exeDaoClient.isExtension(contractEDE007).result.expectBool(true)
+      exeDaoClient.isExtension(contractEDE009).result.expectBool(true)
 
       console.log('see comment on https://github.com/Clarity-Innovation-Lab/executor-dao/pull/9')
       console.log('uncomment test and set in ede009-governance-token-sale.clar')
@@ -339,14 +339,14 @@ Clarinet.test({
         bobby,
         ward,
         contractEDP009,
-        contractEDE007,
+        contractEDE009,
         exeDaoClient,
         ede009GovernanceTokenSaleClient,
         ede000GovernanceTokenClient
       } = utils.setup(chain, accounts);
   
       utils.passProposal(0, chain, accounts, contractEDP009)
-      exeDaoClient.isExtension(contractEDE007).result.expectBool(true)
+      exeDaoClient.isExtension(contractEDE009).result.expectBool(true)
 
       let block = chain.mineBlock([
         ede009GovernanceTokenSaleClient.start(daisy.address),
