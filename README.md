@@ -90,7 +90,7 @@ To propose `edp001-dev-fund`, run the following commands one by one:
 ```clojure
 ;; Submit the proposal via extension EDE002, starting
 ;; the voting process at block-height + 144.
-(contract-call? .ede002-proposal-submission propose .edp001-dev-fund (+ block-height u144) .ede000-governance-token)
+(contract-call? .ede002-threshold-proposal-submission propose .edp001-dev-fund (+ block-height u144) .ede000-governance-token)
 
 ;; Advance the chain 144 blocks.
 ::advance_chain_tip 144

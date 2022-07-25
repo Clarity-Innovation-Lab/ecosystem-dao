@@ -6,7 +6,7 @@ import { ExecutorDaoClient } from "./executor-dao-client.ts";
 import { EDP000BootstrapClient } from "./edp000-bootstrap-client.ts";
 import { EDE000GovernanceTokenClient } from "./ede000-governance-token-client.ts";
 import { EDE001ProposalVotingClient } from "./ede001-proposal-voting-client.ts";
-import { EDE002ProposalSubmissionClient } from "./ede002-proposal-submission-client.ts";
+import { EDE002ProposalSubmissionClient } from "./ede002-threshold-proposal-submission-client.ts";
 import { EDE003EmergencyProposalsClient } from "./ede003-emergency-proposals-client.ts";
 import { EDE004EmergencyExecuteClient } from "./ede004-emergency-execute-client.ts";
 import { EDE005DevFundClient } from "./ede005-dev-fund-client.ts";
@@ -138,7 +138,7 @@ export class Utils {
     const contractEDE000 = accounts.get("deployer")!.address + '.ede000-governance-token';
     const contractEDE000_1 = accounts.get("deployer")!.address + '.ede000-governance-token-v2';
     const contractEDE001 = accounts.get("deployer")!.address + '.ede001-proposal-voting';
-    const contractEDE002 = accounts.get("deployer")!.address + '.ede002-proposal-submission';
+    const contractEDE002 = accounts.get("deployer")!.address + '.ede002-threshold-proposal-submission';
     const contractEDE003 = accounts.get("deployer")!.address + '.ede003-emergency-proposals';
     const contractEDE004 = accounts.get("deployer")!.address + '.ede004-emergency-execute';
     const contractEDE005 = accounts.get("deployer")!.address + '.ede005-dev-fund';
@@ -156,7 +156,7 @@ export class Utils {
     const edp000BootstrapClient = new EDP000BootstrapClient(chain, deployer, 'edp000-bootstrap');
     const ede000GovernanceTokenClient = new EDE000GovernanceTokenClient(chain, deployer, 'ede000-governance-token');
     const ede001ProposalVotingClient = new EDE001ProposalVotingClient(chain, deployer, 'ede001-proposal-voting');
-    const ede002ProposalSubmissionClient = new EDE002ProposalSubmissionClient(chain, deployer, 'ede002-proposal-submission');
+    const ede002ProposalSubmissionClient = new EDE002ProposalSubmissionClient(chain, deployer, 'ede002-threshold-proposal-submission');
     const ede003EmergencyProposalsClient = new EDE003EmergencyProposalsClient(chain, deployer, 'ede003-emergency-proposals');
     const ede004EmergencyExecuteClient = new EDE004EmergencyExecuteClient(chain, deployer, 'ede004-emergency-execute');
     const ede005DevFundClient = new EDE005DevFundClient(chain, deployer, 'ede005-dev-fund');

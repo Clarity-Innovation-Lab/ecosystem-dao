@@ -1,4 +1,4 @@
-;; Title: EDE002 Proposal Submission
+;; Title: EDE002 Threshold Proposal Submission
 ;; Author: Marvin Janssen
 ;; Depends-On: EDE001
 ;; Synopsis:

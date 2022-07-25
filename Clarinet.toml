@@ -4,7 +4,8 @@ authors = []
 description = ""
 telemetry = false
 requirements = []
-repl.costs_version = 2
+costs_version = 2
+
 [contracts.ede000-governance-token]
 path = "contracts/extensions/ede000-governance-token.clar"
 depends_on = ["executor-dao", "governance-token-trait", "sip010-ft-trait"]
@@ -17,8 +18,8 @@ depends_on = ["executor-dao", "governance-token-trait", "sip010-ft-trait"]
 path = "contracts/extensions/ede001-proposal-voting.clar"
 depends_on = ["executor-dao", "proposal-trait", "extension-trait", "governance-token-trait", "ede000-governance-token"]
 
-[contracts.ede002-proposal-submission]
-path = "contracts/extensions/ede002-proposal-submission.clar"
+[contracts.ede002-threshold-proposal-submission]
+path = "contracts/extensions/ede002-threshold-proposal-submission.clar"
 depends_on = ["executor-dao", "extension-trait", "ede001-proposal-voting"]
 
 [contracts.ede003-emergency-proposals]
@@ -38,12 +39,17 @@ path = "contracts/extensions/ede006-treasury.clar"
 depends_on = ["executor-dao", "extension-trait"]
 
 [contracts.ede007-governance-token-sale]
+
 path = "contracts/extensions/ede007-governance-token-sale.clar"
 depends_on = ["executor-dao", "extension-trait", "ede000-governance-token", "ede006-treasury"]
 
+[contracts.ede008-funded-proposal-submission]
+path = "contracts/extensions/ede008-funded-proposal-submission.clar"
+depends_on = []
+
 [contracts.edp000-bootstrap]
 path = "contracts/proposals/edp000-bootstrap.clar"
-depends_on = ["executor-dao", "proposal-trait", "extension-trait", "ede000-governance-token", "ede001-proposal-voting", "ede002-proposal-submission", "ede003-emergency-proposals", "ede004-emergency-execute"]
+depends_on = ["executor-dao", "proposal-trait", "extension-trait", "ede000-governance-token", "ede001-proposal-voting", "ede002-threshold-proposal-submission", "ede003-emergency-proposals", "ede004-emergency-execute"]
 
 [contracts.edp001-1-dev-fund]
 path = "tests/proposals/edp001-1-dev-fund.clar"

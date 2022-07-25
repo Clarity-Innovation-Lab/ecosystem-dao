@@ -8,7 +8,7 @@ deploy_order=(
 	# ExecutorDAO
 	"executor-dao.clar"
 	# Extensions
-	"extensions/ede000-governance-token.clar" "extensions/ede001-proposal-voting.clar" "extensions/ede002-proposal-submission.clar" "extensions/ede003-emergency-proposals.clar" "extensions/ede004-emergency-execute.clar" "extensions/ede005-dev-fund.clar"
+	"extensions/ede000-governance-token.clar" "extensions/ede001-proposal-voting.clar" "extensions/ede002-threshold-proposal-submission.clar" "extensions/ede003-emergency-proposals.clar" "extensions/ede004-emergency-execute.clar" "extensions/ede005-dev-fund.clar"
 	# Proposals
 	"proposals/edp000-bootstrap.clar" "proposals/edp001-dev-fund.clar" "proposals/edp002-kill-emergency-execute.clar"
 	)

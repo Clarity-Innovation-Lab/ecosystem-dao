@@ -3,7 +3,7 @@ import { Clarinet, Chain, Account } from "https://deno.land/x/clarinet@v0.28.1/i
 import { ExecutorDaoClient } from "./src/executor-dao-client.ts";
 import { EDE000GovernanceTokenClient, EDE000GovernanceTokenErrCode } from "./src/ede000-governance-token-client.ts";
 import { EDE001ProposalVotingClient } from "./src/ede001-proposal-voting-client.ts";
-import { EDE002ProposalSubmissionClient } from "./src/ede002-proposal-submission-client.ts";
+import { EDE002ProposalSubmissionClient } from "./src/ede002-threshold-proposal-submission-client.ts";
 import { Utils } from "./src/utils.ts";
 import { assert } from "https://deno.land/std@0.90.0/testing/asserts.ts";
 

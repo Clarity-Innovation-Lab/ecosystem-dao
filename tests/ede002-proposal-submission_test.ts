@@ -1,6 +1,6 @@
 
 import { Clarinet, Chain, Account } from "https://deno.land/x/clarinet@v0.28.1/index.ts";
-import { EDE002ProposalSubmissionClient, EDE002ProposalSubmissionErrCode } from "./src/ede002-proposal-submission-client.ts";
+import { EDE002ProposalSubmissionClient, EDE002ProposalSubmissionErrCode } from "./src/ede002-threshold-proposal-submission-client.ts";
 import { Utils } from "./src/utils.ts";
 
 const utils = new Utils();
