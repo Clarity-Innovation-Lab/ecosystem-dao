@@ -5,6 +5,7 @@ description = ""
 telemetry = false
 requirements = []
 costs_version = 2
+
 [contracts.ede000-governance-token]
 path = "contracts/extensions/ede000-governance-token.clar"
 depends_on = ["executor-dao", "governance-token-trait", "sip010-ft-trait"]
@@ -44,6 +45,10 @@ depends_on = ["executor-dao", "extension-trait"]
 [contracts.ede008-crowdfunded-proposal-submission]
 path = "contracts/extensions/ede008-crowdfunded-proposal-submission.clar"
 depends_on = ["executor-dao", "extension-trait"]
+
+[contracts.ede009-governance-token-sale]
+path = "contracts/extensions/ede009-governance-token-sale.clar"
+depends_on = ["executor-dao", "extension-trait", "ede000-governance-token", "ede006-treasury"]
 
 [contracts.edp000-bootstrap]
 path = "contracts/proposals/edp000-bootstrap.clar"

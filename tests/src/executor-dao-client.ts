@@ -1,5 +1,6 @@
 import {
   Tx,
+  TxTransfer,
   Chain,
   Account,
   types,
@@ -15,7 +16,7 @@ export enum ExecutorDaoErrCode {
 }
 
 export class ExecutorDaoClient {
-  contractName: string = "";
+  contractName = "";
   chain: Chain;
   deployer: Account;
 

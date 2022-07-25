@@ -10,7 +10,7 @@
 (define-public (execute (sender principal))
 	(begin
 		(try! (contract-call? .executor-dao set-extension .ede006-treasury true))
-		(try! (contract-call? .executor-dao set-extension .ede007-governance-token-sale true))
+		(try! (contract-call? .executor-dao set-extension .ede009-governance-token-sale true))
 		(ok true)
 	)
 )
