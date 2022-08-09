@@ -9,60 +9,45 @@ plan:
     - id: 0
       transactions:
         - contract-publish:
-            contract-name: sip010-ft-trait
+            contract-name: sip013-semi-fungible-token-trait
             expected-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
-            cost: 8120
-            path: contracts/traits/sip010-ft-trait.clar
+            cost: 9610
+            path: tests/proposals/sip013-semi-fungible-token-trait.clar
         - contract-publish:
-            contract-name: sip009-nft-trait
+            contract-name: sip013-transfer-many-trait
             expected-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
-            cost: 4570
-            path: tests/proposals/sip009-nft-trait.clar
+            cost: 4000
+            path: tests/proposals/sip013-transfer-many-trait.clar
         - contract-publish:
-            contract-name: sip009-nft
+            contract-name: sip013-nft
             expected-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
-            cost: 11160
-            path: tests/proposals/sip009-nft.clar
-        - contract-publish:
-            contract-name: extension-trait
-            expected-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
-            cost: 940
-            path: contracts/traits/extension-trait.clar
+            cost: 43260
+            path: tests/proposals/sip013-nft.clar
         - contract-publish:
             contract-name: proposal-trait
             expected-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
             cost: 820
             path: contracts/traits/proposal-trait.clar
         - contract-publish:
-            contract-name: executor-dao
+            contract-name: extension-trait
             expected-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
-            cost: 25470
-            path: contracts/executor-dao.clar
+            cost: 940
+            path: contracts/traits/extension-trait.clar
         - contract-publish:
-            contract-name: edp009-enable-treasury
+            contract-name: sip010-ft-trait
             expected-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
-            cost: 4750
-            path: tests/proposals/edp009-enable-treasury.clar
-        - contract-publish:
-            contract-name: ownable-trait
-            expected-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
-            cost: 1440
-            path: contracts/traits/ownable-trait.clar
-        - contract-publish:
-            contract-name: nft-escrow
-            expected-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
-            cost: 29330
-            path: contracts/external/nft-escrow.clar
+            cost: 8120
+            path: contracts/traits/sip010-ft-trait.clar
         - contract-publish:
             contract-name: governance-token-trait
             expected-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
             cost: 4900
             path: contracts/traits/governance-token-trait.clar
         - contract-publish:
-            contract-name: sip013-semi-fungible-token-trait
+            contract-name: executor-dao
             expected-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
-            cost: 9610
-            path: tests/proposals/sip013-semi-fungible-token-trait.clar
+            cost: 25470
+            path: contracts/executor-dao.clar
         - contract-publish:
             contract-name: ede000-governance-token
             expected-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
@@ -89,35 +74,25 @@ plan:
             cost: 27860
             path: contracts/proposals/edp000-bootstrap.clar
         - contract-publish:
-            contract-name: ede006-treasury
+            contract-name: ownable-trait
             expected-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
-            cost: 50400
-            path: contracts/extensions/ede006-treasury.clar
+            cost: 1440
+            path: contracts/traits/ownable-trait.clar
         - contract-publish:
-            contract-name: sip013-transfer-many-trait
+            contract-name: nft-escrow
             expected-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
-            cost: 4000
-            path: tests/proposals/sip013-transfer-many-trait.clar
-        - contract-publish:
-            contract-name: sip013-nft
-            expected-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
-            cost: 43260
-            path: tests/proposals/sip013-nft.clar
-        - contract-publish:
-            contract-name: edp010-transfer-013-assets
-            expected-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
-            cost: 6250
-            path: tests/proposals/edp010-transfer-013-assets.clar
-        - contract-publish:
-            contract-name: edp004-dao-change-governance
-            expected-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
-            cost: 10150
-            path: tests/proposals/edp004-dao-change-governance.clar
+            cost: 29330
+            path: contracts/external/nft-escrow.clar
         - contract-publish:
             contract-name: edp008-1-allowlist-nft-escrow
             expected-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
             cost: 7910
             path: tests/proposals/edp008-1-allowlist-nft-escrow.clar
+        - contract-publish:
+            contract-name: ede005-dev-fund
+            expected-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
+            cost: 29260
+            path: contracts/extensions/ede005-dev-fund.clar
         - contract-publish:
             contract-name: ede002-threshold-proposal-submission
             expected-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
@@ -129,74 +104,99 @@ plan:
             cost: 9780
             path: tests/proposals/edp005-dao-change-sample-config.clar
         - contract-publish:
-            contract-name: edp002-kill-emergency-execute
+            contract-name: ede006-treasury
             expected-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
-            cost: 4220
-            path: contracts/proposals/edp002-kill-emergency-execute.clar
-    - id: 1
-      transactions:
+            cost: 50400
+            path: contracts/extensions/ede006-treasury.clar
         - contract-publish:
-            contract-name: edp010-transfer-010-assets
+            contract-name: edp010-transfer-013-assets
             expected-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
-            cost: 6470
-            path: tests/proposals/edp010-transfer-010-assets.clar
-        - contract-publish:
-            contract-name: edp003-allowlist-escrow-nft
-            expected-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
-            cost: 6600
-            path: contracts/proposals/edp003-allowlist-escrow-nft.clar
-        - contract-publish:
-            contract-name: ede005-dev-fund
-            expected-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
-            cost: 29260
-            path: contracts/extensions/ede005-dev-fund.clar
-        - contract-publish:
-            contract-name: edp001-dev-fund
-            expected-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
-            cost: 13340
-            path: contracts/proposals/edp001-dev-fund.clar
-        - contract-publish:
-            contract-name: ede008-funded-proposal-submission
-            expected-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
-            cost: 50530
-            path: contracts/extensions/ede008-funded-proposal-submission.clar
+            cost: 6250
+            path: tests/proposals/edp010-transfer-013-assets.clar
         - contract-publish:
             contract-name: edp010-transfer-stx-assets
             expected-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
             cost: 4420
             path: tests/proposals/edp010-transfer-stx-assets.clar
         - contract-publish:
-            contract-name: edp006-dao-mint-burn-edg
+            contract-name: sip009-nft-trait
             expected-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
-            cost: 16650
-            path: tests/proposals/edp006-dao-mint-burn-edg.clar
+            cost: 4570
+            path: tests/proposals/sip009-nft-trait.clar
         - contract-publish:
-            contract-name: edp001-1-dev-fund
+            contract-name: sip009-nft
             expected-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
-            cost: 17340
-            path: tests/proposals/edp001-1-dev-fund.clar
+            cost: 11160
+            path: tests/proposals/sip009-nft.clar
         - contract-publish:
-            contract-name: edp007-dao-update-executive
+            contract-name: edp010-transfer-009-assets
             expected-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
-            cost: 10060
-            path: tests/proposals/edp007-dao-update-executive.clar
-        - contract-publish:
-            contract-name: ede009-governance-token-sale
-            expected-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
-            cost: 40630
-            path: contracts/extensions/ede009-governance-token-sale.clar
+            cost: 5290
+            path: tests/proposals/edp010-transfer-009-assets.clar
+    - id: 1
+      transactions:
         - contract-publish:
             contract-name: ede000-governance-token-v2
             expected-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
             cost: 42010
             path: tests/proposals/ede000-governance-token-v2.clar
         - contract-publish:
+            contract-name: edp003-allowlist-escrow-nft
+            expected-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
+            cost: 6600
+            path: contracts/proposals/edp003-allowlist-escrow-nft.clar
+        - contract-publish:
+            contract-name: edp001-dev-fund
+            expected-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
+            cost: 13340
+            path: contracts/proposals/edp001-dev-fund.clar
+        - contract-publish:
+            contract-name: edp001-1-dev-fund
+            expected-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
+            cost: 17340
+            path: tests/proposals/edp001-1-dev-fund.clar
+        - contract-publish:
+            contract-name: edp009-enable-treasury
+            expected-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
+            cost: 4750
+            path: tests/proposals/edp009-enable-treasury.clar
+        - contract-publish:
+            contract-name: edp006-dao-mint-burn-edg
+            expected-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
+            cost: 16650
+            path: tests/proposals/edp006-dao-mint-burn-edg.clar
+        - contract-publish:
+            contract-name: edp007-dao-update-executive
+            expected-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
+            cost: 10060
+            path: tests/proposals/edp007-dao-update-executive.clar
+        - contract-publish:
             contract-name: ede007-snapshot-proposal-voting
             expected-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
-            cost: 46110
+            cost: 45290
             path: contracts/extensions/ede007-snapshot-proposal-voting.clar
         - contract-publish:
-            contract-name: edp010-transfer-009-assets
+            contract-name: ede008-funded-proposal-submission
             expected-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
-            cost: 5290
-            path: tests/proposals/edp010-transfer-009-assets.clar
+            cost: 50620
+            path: contracts/extensions/ede008-funded-proposal-submission.clar
+        - contract-publish:
+            contract-name: edp010-transfer-010-assets
+            expected-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
+            cost: 6470
+            path: tests/proposals/edp010-transfer-010-assets.clar
+        - contract-publish:
+            contract-name: ede009-governance-token-sale
+            expected-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
+            cost: 40630
+            path: contracts/extensions/ede009-governance-token-sale.clar
+        - contract-publish:
+            contract-name: edp002-kill-emergency-execute
+            expected-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
+            cost: 4220
+            path: contracts/proposals/edp002-kill-emergency-execute.clar
+        - contract-publish:
+            contract-name: edp004-dao-change-governance
+            expected-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
+            cost: 10150
+            path: tests/proposals/edp004-dao-change-governance.clar

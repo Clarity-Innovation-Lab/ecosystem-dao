@@ -43,7 +43,7 @@
 ;; Proposals
 
 (define-private (submit-proposal-for-vote (proposal <proposal-trait>) (start-block-height uint))
-	(contract-call? .ede001-proposal-voting add-proposal
+	(contract-call? .ede007-snapshot-proposal-voting add-proposal
 		proposal
 		{
 			start-block-height: start-block-height,

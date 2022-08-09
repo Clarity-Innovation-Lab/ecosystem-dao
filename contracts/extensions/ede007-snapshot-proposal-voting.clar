@@ -13,7 +13,6 @@
 
 (impl-trait .extension-trait.extension-trait)
 (use-trait proposal-trait .proposal-trait.proposal-trait)
-(use-trait governance-token-trait .governance-token-trait.governance-token-trait)
 
 (define-constant err-unauthorised (err u3000))
 (define-constant err-proposal-already-executed (err u3001))
