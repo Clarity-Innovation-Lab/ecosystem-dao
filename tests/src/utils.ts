@@ -78,6 +78,7 @@ export class Utils {
     ward: Account;
     contractEXD: string;
     contractEDP000: string;
+    contractEDP000_1: string;
     contractEDP001: string;
     contractEDP001_1: string;
     contractEDP002: string;
@@ -126,6 +127,7 @@ export class Utils {
     const deployer = accounts.get("deployer")!;
     const contractEXD = accounts.get("deployer")!.address + '.executor-dao';
     const contractEDP000 = accounts.get("deployer")!.address + '.edp000-bootstrap';
+    const contractEDP000_1 = accounts.get("deployer")!.address + '.edp000-bootstrap-minimal';
     const contractEDP001 = accounts.get("deployer")!.address + '.edp001-dev-fund';
     const contractEDP001_1 = accounts.get("deployer")!.address + '.edp001-1-dev-fund';
     const contractEDP002 = accounts.get("deployer")!.address + '.edp002-kill-emergency-execute';
@@ -184,6 +186,7 @@ export class Utils {
         ward, 
         contractEXD, 
         contractEDP000, 
+        contractEDP000_1, 
         contractEDP001, 
         contractEDP001_1, 
         contractEDP002, 

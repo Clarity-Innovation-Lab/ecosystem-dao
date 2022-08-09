@@ -99,3 +99,35 @@ Clarinet.test({
     exeDaoClient.isExtension(deployer.address + '.ede005-dev-fund').result.expectBool(false)
   }
 });
+
+Clarinet.test({
+  name: "Ensure can construct the minimal dao",
+  fn(chain: Chain, accounts: Map<string, Account>) {
+    const { 
+      deployer, 
+      exeDaoClient, 
+      contractEDP000_1, 
+      ede004EmergencyExecuteClient 
+    } = utils.setup(chain, accounts)
+    
+    const block = chain.mineBlock([
+      exeDaoClient.construct(contractEDP000_1, deployer.address)
+    ]);
+    block.receipts[0].result.expectOk().expectBool(true)
+    assert(block.receipts[0].events.filter((o) => o.type === "contract_event").find(((o) => o.contract_event.value === '"EcosystemDAO has risen."')))
+    ede004EmergencyExecuteClient.isExecutiveTeamMember('ST167Z6WFHMV0FZKFCRNWZ33WTB0DFBCW9M1FW3AY').result.expectBool(true)
+    ede004EmergencyExecuteClient.isExecutiveTeamMember('STDBEG5X8XD50SPM1JJH0E5CTXGDV5NJTJTTH7YB').result.expectBool(true)
+    ede004EmergencyExecuteClient.isExecutiveTeamMember('ST3CK642B6119EVC6CT550PW5EZZ1AJW6608HK60A').result.expectBool(true)
+    ede004EmergencyExecuteClient.isExecutiveTeamMember('ST2JHG361ZXG51QTKY2NQCVBPPRRE2KZB1HR05NNC').result.expectBool(false)
+    ede004EmergencyExecuteClient.isExecutiveTeamMember('STNHKEPYEPJ8ET55ZZ0M5A34J0R3N5FM2CMMMAZ6').result.expectBool(false)
+    ede004EmergencyExecuteClient.getSignalsRequired().result.expectUint(2)
+    exeDaoClient.isExtension(deployer.address + '.edp000-bootstrap').result.expectBool(false)
+    exeDaoClient.isExtension(deployer.address + '.ede000-governance-token').result.expectBool(false)
+    exeDaoClient.isExtension(deployer.address + '.ede001-proposal-voting').result.expectBool(false)
+    exeDaoClient.isExtension(deployer.address + '.ede002-threshold-proposal-submission').result.expectBool(false)
+    exeDaoClient.isExtension(deployer.address + '.ede003-emergency-proposals').result.expectBool(false)
+    exeDaoClient.isExtension(deployer.address + '.ede004-emergency-execute').result.expectBool(true)
+    exeDaoClient.isExtension(deployer.address + '.ede005-dev-fund').result.expectBool(false)
+    exeDaoClient.isExtension(deployer.address + '.ede006-treasury').result.expectBool(true)
+  }
+});

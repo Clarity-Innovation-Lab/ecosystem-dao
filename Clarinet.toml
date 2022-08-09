@@ -54,6 +54,10 @@ depends_on = ["executor-dao", "extension-trait", "ede000-governance-token", "ede
 path = "contracts/proposals/edp000-bootstrap.clar"
 depends_on = ["executor-dao", "proposal-trait", "extension-trait", "ede000-governance-token", "ede001-proposal-voting", "ede002-threshold-proposal-submission", "ede003-emergency-proposals", "ede004-emergency-execute"]
 
+[contracts.edp000-bootstrap-minimal]
+path = "contracts/proposals/testnet/edp000-bootstrap-minimal.clar"
+depends_on = ["executor-dao", "proposal-trait", "extension-trait", "ede000-governance-token", "ede001-proposal-voting", "ede002-threshold-proposal-submission", "ede003-emergency-proposals", "ede004-emergency-execute"]
+
 [contracts.edp001-1-dev-fund]
 path = "tests/proposals/edp001-1-dev-fund.clar"
 depends_on = ["ede000-governance-token", "executor-dao"]
