@@ -18,11 +18,6 @@
 				{extension: .ede006-treasury, enabled: true}
 			)
 		))
-
-		;; Set emergency team members.
-		(try! (contract-call? .ede003-emergency-proposals set-emergency-team-member 'ST167Z6WFHMV0FZKFCRNWZ33WTB0DFBCW9M1FW3AY true))
-		(try! (contract-call? .ede003-emergency-proposals set-emergency-team-member 'STDBEG5X8XD50SPM1JJH0E5CTXGDV5NJTJTTH7YB true))
-
 		;; Set executive team members.
 		(try! (contract-call? .ede004-emergency-execute set-executive-team-member 'ST167Z6WFHMV0FZKFCRNWZ33WTB0DFBCW9M1FW3AY true))
 		(try! (contract-call? .ede004-emergency-execute set-executive-team-member 'STDBEG5X8XD50SPM1JJH0E5CTXGDV5NJTJTTH7YB true))
