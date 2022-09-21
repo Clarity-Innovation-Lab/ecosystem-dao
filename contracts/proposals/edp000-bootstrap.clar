@@ -21,6 +21,8 @@
 				{extension: .ede002-threshold-proposal-submission, enabled: true}
 				{extension: .ede003-emergency-proposals, enabled: true}
 				{extension: .ede004-emergency-execute, enabled: true}
+				{extension: .ede007-snapshot-proposal-voting-v2, enabled: true}
+				{extension: .ede008-funded-proposal-submission-v2, enabled: true}
 			)
 		))
 

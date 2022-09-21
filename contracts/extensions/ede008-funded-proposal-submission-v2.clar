@@ -20,6 +20,7 @@
 (define-constant err-already-funded (err u3106))
 (define-constant err-nothing-to-refund (err u3107))
 (define-constant err-refund-not-allowed (err u3108))
+(define-constant err-not-majority (err u3109))
 
 (define-map refundable-proposals principal bool)
 (define-map funded-proposals principal bool)
@@ -42,13 +43,13 @@
 
 ;; Proposals
 
-(define-private (submit-proposal-for-vote (proposal <proposal-trait>) (start-block-height uint))
-	(contract-call? .ede007-snapshot-proposal-voting add-proposal
+(define-private (submit-proposal-for-vote (proposal <proposal-trait>) (start-block-height uint) (custom-majority (optional uint)))
+	(contract-call? .ede007-snapshot-proposal-voting-v2 add-proposal
 		proposal
 		{
 			start-block-height: start-block-height,
 			end-block-height: (+ start-block-height (try! (get-parameter "proposal-duration"))),
-			custom-majority: none,
+			custom-majority: custom-majority,
 			proposer: tx-sender ;; change to original submitter
 		}
 	)
@@ -104,7 +105,7 @@
 
 ;; Proposals
 
-(define-public (fund (proposal <proposal-trait>) (amount uint))
+(define-public (fund (proposal <proposal-trait>) (amount uint) (custom-majority (optional uint)))
 	(let
 		(
 			(proposal-principal (contract-of proposal))
@@ -120,7 +121,8 @@
 		(map-set proposal-funding proposal-principal (+ current-total-funding transfer-amount))
 		(asserts! funded (ok false))
 		(map-set funded-proposals proposal-principal true)
-		(submit-proposal-for-vote proposal (+ block-height (try! (get-parameter "proposal-start-delay"))))
+		(asserts! (match custom-majority majority (> majority u5000) true) err-not-majority)
+		(submit-proposal-for-vote proposal (+ block-height (try! (get-parameter "proposal-start-delay"))) custom-majority)
 	)
 )
 

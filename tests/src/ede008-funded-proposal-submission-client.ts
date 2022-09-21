@@ -27,22 +27,29 @@ export class EDE008FundedProposalSubmissionClient {
     this.deployer = deployer;
   }
 
-  getParameter(parameter: string, ): ReadOnlyFn {
+  getParameter(parameter: string): ReadOnlyFn {
     return this.callReadOnlyFn("get-parameter", [types.ascii(parameter)]);
   }
 
-  propose(proposal: string, startBlockHeight: number, txSender: string): Tx {
-    return Tx.contractCall(
-      this.contractName,
-      "propose",
-      [types.principal(proposal), types.uint(startBlockHeight)], txSender);
+  isProposalFunded(proposal: string): ReadOnlyFn {
+    return this.callReadOnlyFn("is-proposal-funded", [types.principal(proposal)]);
   }
 
-  fund(proposal: string, amount: number, txSender: string): Tx {
+  getProposalFunding(proposal: string): ReadOnlyFn {
+    return this.callReadOnlyFn("get-proposal-funding", [types.principal(proposal)]);
+  }
+
+  getProposalFundingByPrincipal(proposal: string, funder: string): ReadOnlyFn {
+    return this.callReadOnlyFn("get-proposal-funding-by-principal", [types.principal(proposal), types.principal(funder)]);
+  }
+
+  //(define-read-only (get-proposal-funding (proposal principal))
+
+  fund(proposal: string, amount: number, majority: number|null, txSender: string): Tx {
     return Tx.contractCall(
       this.contractName,
-      "propose",
-      [types.principal(proposal), types.uint(amount)], txSender);
+      "fund",
+      [types.principal(proposal), types.uint(amount), (majority && majority > 0) ? types.some(types.uint(majority)) : types.none()], txSender);
   }
 
   private callReadOnlyFn(
