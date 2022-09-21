@@ -51,7 +51,6 @@ Clarinet.test({
       deployer, 
       exeDaoClient,
       phil,
-      daisy,
       contractEDP000, 
       contractEDP003,
       ede008FundedProposalSubmissionClient
