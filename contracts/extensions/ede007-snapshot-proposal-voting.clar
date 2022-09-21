@@ -22,6 +22,9 @@
 (define-constant err-proposal-inactive (err u3005))
 (define-constant err-insufficient-voting-capacity (err u3006))
 (define-constant err-end-block-height-not-reached (err u3007))
+(define-constant err-not-majority (err u3008))
+
+(define-constant custom-majority-upper u10000)
 
 (define-map proposals
 	principal
@@ -32,6 +35,7 @@
 		end-block-height: uint,
 		concluded: bool,
 		passed: bool,
+		custom-majority: (optional uint), ;; u10000 = 100%
 		proposer: principal
 	}
 )
@@ -48,10 +52,11 @@
 
 ;; Proposals
 
-(define-public (add-proposal (proposal <proposal-trait>) (data {start-block-height: uint, end-block-height: uint, proposer: principal}))
+(define-public (add-proposal (proposal <proposal-trait>) (data {start-block-height: uint, end-block-height: uint, proposer: principal, custom-majority: (optional uint)}))
 	(begin
 		(try! (is-dao-or-extension))
 		(asserts! (is-none (contract-call? .executor-dao executed-at proposal)) err-proposal-already-executed)
+		(asserts! (match (get custom-majority data) majority (> majority u5000) true) err-not-majority)
 		(print {event: "propose", proposal: proposal, proposer: tx-sender})
 		(ok (asserts! (map-insert proposals (contract-of proposal) (merge {votes-for: u0, votes-against: u0, concluded: false, passed: false} data)) err-proposal-already-exists))
 	)
@@ -107,7 +112,12 @@
 	(let
 		(
 			(proposal-data (unwrap! (map-get? proposals (contract-of proposal)) err-unknown-proposal))
-			(passed (> (get votes-for proposal-data) (get votes-against proposal-data)))
+			(passed
+				(match (get custom-majority proposal-data)
+					majority (> (* (get votes-for proposal-data) custom-majority-upper) (* (+ (get votes-for proposal-data) (get votes-against proposal-data)) majority))
+					(> (get votes-for proposal-data) (get votes-against proposal-data))
+				)
+			)
 		)
 		(asserts! (not (get concluded proposal-data)) err-proposal-already-concluded)
 		(asserts! (>= block-height (get end-block-height proposal-data)) err-end-block-height-not-reached)

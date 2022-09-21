@@ -48,6 +48,7 @@
 		{
 			start-block-height: start-block-height,
 			end-block-height: (+ start-block-height (try! (get-parameter "proposal-duration"))),
+			custom-majority: none,
 			proposer: tx-sender ;; change to original submitter
 		}
 	)
