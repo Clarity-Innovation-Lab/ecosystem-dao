@@ -1,4 +1,4 @@
-;; Title: EDE007 Funded Proposal Submission
+;; Title: EDE008 Funded Proposal Submission
 ;; Author: Marvin Janssen
 ;; Depends-On: EDE001
 ;; Synopsis:
@@ -42,13 +42,12 @@
 
 ;; Proposals
 
-(define-private (submit-proposal-for-vote (proposal <proposal-trait>) (start-block-height uint) (custom-majority (optional uint)))
-	(contract-call? .ede007-snapshot-proposal-voting-v2 add-proposal
+(define-private (submit-proposal-for-vote (proposal <proposal-trait>) (start-block-height uint))
+	(contract-call? .ede007-snapshot-proposal-voting add-proposal
 		proposal
 		{
 			start-block-height: start-block-height,
 			end-block-height: (+ start-block-height (try! (get-parameter "proposal-duration"))),
-			custom-majority: custom-majority,
 			proposer: tx-sender ;; change to original submitter
 		}
 	)
@@ -104,7 +103,7 @@
 
 ;; Proposals
 
-(define-public (fund (proposal <proposal-trait>) (amount uint) (custom-majority (optional uint)))
+(define-public (fund (proposal <proposal-trait>) (amount uint))
 	(let
 		(
 			(proposal-principal (contract-of proposal))
@@ -120,7 +119,7 @@
 		(map-set proposal-funding proposal-principal (+ current-total-funding transfer-amount))
 		(asserts! funded (ok false))
 		(map-set funded-proposals proposal-principal true)
-		(submit-proposal-for-vote proposal (+ block-height (try! (get-parameter "proposal-start-delay"))) custom-majority)
+		(submit-proposal-for-vote proposal (+ block-height (try! (get-parameter "proposal-start-delay"))))
 	)
 )
 

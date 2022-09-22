@@ -37,6 +37,9 @@
 		(try! (contract-call? .ede004-emergency-execute set-executive-team-member 'ST2JHG361ZXG51QTKY2NQCVBPPRRE2KZB1HR05NNC true))
 		(try! (contract-call? .ede004-emergency-execute set-signals-required u3)) ;; signal from 3 out of 4 team members requied.
 
+		;; Make EDP003 refundable
+		(try! (contract-call? .ede008-funded-proposal-submission-v2 set-refundable .edp003-allowlist-escrow-nft true)) ;; signal from 3 out of 4 team members requied.
+
 		;; Mint initial token supply.
 		(try! (contract-call? .ede000-governance-token edg-mint-many
 			(list

@@ -13,7 +13,10 @@ export enum EDE008FundedProposalSubmissionErrCode {
   err_insufficient_balance=3102,
   err_unknown_parameter=3103,
   err_proposal_minimum_start_delay=3104,
-  err_proposal_maximum_start_delay=3105
+  err_proposal_maximum_start_delay=3105,
+  err_already_funded=3106,
+  err_nothing_to_refund=3107,
+  err_refund_not_allowed=3108
 }
 
 export class EDE008FundedProposalSubmissionClient {
@@ -43,13 +46,22 @@ export class EDE008FundedProposalSubmissionClient {
     return this.callReadOnlyFn("get-proposal-funding-by-principal", [types.principal(proposal), types.principal(funder)]);
   }
 
-  //(define-read-only (get-proposal-funding (proposal principal))
+  canRefund(proposal: string, funder: Account): ReadOnlyFn {
+    return this.callReadOnlyFn("can-refund", [types.principal(proposal), types.principal(funder.address)], funder);
+  }
 
   fund(proposal: string, amount: number, majority: number|null, txSender: string): Tx {
     return Tx.contractCall(
       this.contractName,
       "fund",
       [types.principal(proposal), types.uint(amount), (majority && majority > 0) ? types.some(types.uint(majority)) : types.none()], txSender);
+  }
+
+  refund(proposal: string, funder: string|null, txSender: string): Tx {
+    return Tx.contractCall(
+      this.contractName,
+      "refund",
+      [types.principal(proposal), (funder) ? types.some(types.principal(funder)) : types.none()], txSender);
   }
 
   private callReadOnlyFn(
