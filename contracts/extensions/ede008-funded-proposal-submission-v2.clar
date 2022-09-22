@@ -1,12 +1,18 @@
-;; Title: EDE007 Funded Proposal Submission
+;; Title: EDE008 Funded Proposal Submission
 ;; Author: Marvin Janssen
 ;; Depends-On: EDE001
 ;; Synopsis:
 ;; This extension part of the core of ExecutorDAO. It allows members to
 ;; bring proposals to the voting phase by funding them with a preset amount
-;; of tokens.
+;; of tokens. 
 ;; Description:
-;; TODO
+;; The level of funding is determined by a DAO parameter and can be changed by proposal.
+;; Any funder can reclaim their stx up to the point the proposal is fully funded and submitted.
+;; Proposals can also be marked as refundable in which case a funder can reclaim their stx
+;; even after submission (during or after the voting period).
+;; This extension provides the ability for the final funding transaction to set a
+;; custom majority for voting. This changes the threshold from the 
+;; default of 50% to anything up to 100%.
 
 (impl-trait .extension-trait.extension-trait)
 (use-trait proposal-trait .proposal-trait.proposal-trait)

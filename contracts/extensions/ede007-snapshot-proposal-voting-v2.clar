@@ -9,7 +9,10 @@
 ;; bound, or voting power, depends on the amount of STX tokens the tx-sender
 ;; owned at the start block height of the proposal. The name "snapshot" comes
 ;; from the fact that the extension effectively uses the STX balance sheet
-;; at a specific block heights to determine voting power.
+;; at a specific block heights to determine voting power. 
+;; Custom majority thresholds for voting are also possible on a per proposal basis.
+;; A custom majority of 66% mean the percent of votes for must be greater than 66 for
+;; the vote to carry.
 
 (impl-trait .extension-trait.extension-trait)
 (use-trait proposal-trait .proposal-trait.proposal-trait)
