@@ -51,28 +51,28 @@ path = "contracts/extensions/ede009-governance-token-sale.clar"
 depends_on = ["executor-dao", "extension-trait", "ede000-governance-token", "ede006-treasury"]
 
 [contracts.edp000-bootstrap]
-path = "contracts/proposals/edp000-bootstrap.clar"
+path = "contracts/proposals/testnet/edp000-bootstrap.clar"
 depends_on = ["executor-dao", "proposal-trait", "extension-trait", "ede000-governance-token", "ede001-proposal-voting", "ede002-threshold-proposal-submission", "ede003-emergency-proposals", "ede004-emergency-execute"]
 
 [contracts.edp000-bootstrap-minimal]
 path = "contracts/proposals/testnet/edp000-bootstrap-minimal.clar"
 depends_on = ["executor-dao", "proposal-trait", "extension-trait", "ede000-governance-token", "ede001-proposal-voting", "ede002-threshold-proposal-submission", "ede003-emergency-proposals", "ede004-emergency-execute"]
 
-[contracts.edp001-1-dev-fund]
-path = "tests/proposals/edp001-1-dev-fund.clar"
-depends_on = ["ede000-governance-token", "executor-dao"]
-
 [contracts.edp001-dev-fund]
-path = "contracts/proposals/edp001-dev-fund.clar"
+path = "contracts/proposals/testnet/edp001-dev-fund.clar"
 depends_on = ["ede000-governance-token", "executor-dao"]
 
 [contracts.edp002-kill-emergency-execute]
-path = "contracts/proposals/edp002-kill-emergency-execute.clar"
+path = "contracts/proposals/testnet/edp002-kill-emergency-execute.clar"
 depends_on = ["ede004-emergency-execute", "executor-dao"]
 
 [contracts.edp003-allowlist-escrow-nft]
-path = "contracts/proposals/edp003-allowlist-escrow-nft.clar"
+path = "contracts/proposals/testnet/edp003-allowlist-escrow-nft.clar"
 depends_on = ["proposal-trait", "nft-escrow"]
+
+[contracts.edp001-1-dev-fund]
+path = "tests/proposals/edp001-1-dev-fund.clar"
+depends_on = ["ede000-governance-token", "executor-dao"]
 
 [contracts.edp004-dao-change-governance]
 path = "tests/proposals/edp004-dao-change-governance.clar"
