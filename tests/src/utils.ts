@@ -2,7 +2,7 @@ import {
   Chain,
   Account
 } from "https://deno.land/x/clarinet@v0.31.1/index.ts";
-import { ExecutorDaoClient } from "./executor-dao-client.ts";
+import { ExecutorDaoClient } from "./ecosystem-dao-client.ts";
 import { EDP000BootstrapClient } from "./edp000-bootstrap-client.ts";
 import { EDE000GovernanceTokenClient } from "./ede000-governance-token-client.ts";
 import { EDE001ProposalVotingClient } from "./ede001-proposal-voting-client.ts";
@@ -125,7 +125,7 @@ export class Utils {
   } => {
     const administrator = accounts.get("deployer")!;
     const deployer = accounts.get("deployer")!;
-    const contractEXD = accounts.get("deployer")!.address + '.executor-dao';
+    const contractEXD = accounts.get("deployer")!.address + '.ecosystem-dao';
     const contractEDP000 = accounts.get("deployer")!.address + '.edp000-bootstrap';
     const contractEDP000_1 = accounts.get("deployer")!.address + '.edp000-bootstrap-minimal';
     const contractEDP001 = accounts.get("deployer")!.address + '.edp001-dev-fund';
@@ -161,7 +161,7 @@ export class Utils {
     const bobby = accounts.get("wallet_3")!;
     const hunter = accounts.get("wallet_4")!;
     const ward = accounts.get("wallet_9")!;
-    const exeDaoClient = new ExecutorDaoClient(chain, deployer, 'executor-dao');
+    const exeDaoClient = new ExecutorDaoClient(chain, deployer, 'ecosystem-dao');
     const edp000BootstrapClient = new EDP000BootstrapClient(chain, deployer, 'edp000-bootstrap');
     const ede000GovernanceTokenClient = new EDE000GovernanceTokenClient(chain, deployer, 'ede000-governance-token');
     const ede001ProposalVotingClient = new EDE001ProposalVotingClient(chain, deployer, 'ede001-proposal-voting');

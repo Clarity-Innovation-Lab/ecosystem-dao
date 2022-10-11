@@ -1,6 +1,6 @@
 
 import { Clarinet, Chain, Account } from "https://deno.land/x/clarinet@v0.31.1/index.ts";
-import { ExecutorDaoErrCode } from "./src/executor-dao-client.ts";
+import { ExecutorDaoErrCode } from "./src/ecosystem-dao-client.ts";
 import { EDE004EmergencyExecuteErrCode } from "./src/ede004-emergency-execute-client.ts";
 import { Utils } from "./src/utils.ts";
 

@@ -1,7 +1,7 @@
 
 import { types, Clarinet, Chain, Account } from "https://deno.land/x/clarinet@v0.31.1/index.ts";
 import { assertEquals } from 'https://deno.land/std@0.90.0/testing/asserts.ts';
-import { ExecutorDaoErrCode } from "./src/executor-dao-client.ts";
+import { ExecutorDaoErrCode } from "./src/ecosystem-dao-client.ts";
 import { EDE001ProposalVotingClient, EDE001ProposalVotingErrCode } from "./src/ede001-proposal-voting-client.ts";
 import { EDE002ProposalSubmissionClient, EDE002ProposalSubmissionErrCode } from "./src/ede002-threshold-proposal-submission-client.ts";
 import { Utils } from "./src/utils.ts";

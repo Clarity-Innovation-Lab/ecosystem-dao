@@ -6,7 +6,7 @@ deploy_order=(
 	# traits
 	"traits/extension-trait.clar" "traits/governance-token-trait.clar" "traits/ownable-trait.clar" "traits/proposal-trait.clar" "traits/sip010-ft-trait.clar"
 	# ExecutorDAO
-	"executor-dao.clar"
+	"ecosystem-dao.clar"
 	# Extensions
 	"extensions/ede000-governance-token.clar" "extensions/ede001-proposal-voting.clar" "extensions/ede002-threshold-proposal-submission.clar" "extensions/ede003-emergency-proposals.clar" "extensions/ede004-emergency-execute.clar" "extensions/ede005-dev-fund.clar"
 	# Proposals
@@ -21,7 +21,7 @@ for contract in "${deploy_order[@]}"; do
 	clarity-cli launch "$deployer.$(basename $contract .clar)" "../contracts/$contract" "$vmstate"
 done
 echo "BOOTSTRAP"
-result=$(clarity-cli execute "$vmstate" "$deployer.executor-dao" "construct" "$deployer" "'$deployer.edp000-bootstrap")
+result=$(clarity-cli execute "$vmstate" "$deployer.ecosystem-dao" "construct" "$deployer" "'$deployer.edp000-bootstrap")
 if [[ $(echo $result | jq ".success") == "true" ]]; then
 	echo "OK"
 else

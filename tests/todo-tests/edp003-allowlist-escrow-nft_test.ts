@@ -8,7 +8,7 @@ const setup = (accounts: Map<string, Account>): {
 } => {
   const administrator = accounts.get("deployer")!;
   const deployer = accounts.get("deployer")!;
-  const contractEXD = accounts.get("deployer")!.address + '.executor-dao';
+  const contractEXD = accounts.get("deployer")!.address + '.ecosystem-dao';
   const contractEDP000 = accounts.get("deployer")!.address + '.edp000-bootstrap';
   return {
       administrator, deployer, contractEXD, contractEDP000

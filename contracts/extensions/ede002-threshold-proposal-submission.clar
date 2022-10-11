@@ -31,7 +31,7 @@
 ;; --- Authorisation check
 
 (define-public (is-dao-or-extension)
-	(ok (asserts! (or (is-eq tx-sender .executor-dao) (contract-call? .executor-dao is-extension contract-caller)) err-unauthorised))
+	(ok (asserts! (or (is-eq tx-sender .ecosystem-dao) (contract-call? .ecosystem-dao is-extension contract-caller)) err-unauthorised))
 )
 
 ;; --- Internal DAO functions

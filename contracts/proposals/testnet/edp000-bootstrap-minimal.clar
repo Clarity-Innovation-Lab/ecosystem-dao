@@ -12,7 +12,7 @@
 (define-public (execute (sender principal))
 	(begin
 		;; Enable genesis extensions.
-		(try! (contract-call? .executor-dao set-extensions
+		(try! (contract-call? .ecosystem-dao set-extensions
 			(list
 				{extension: .ede004-emergency-execute, enabled: true}
 				{extension: .ede006-treasury, enabled: true}

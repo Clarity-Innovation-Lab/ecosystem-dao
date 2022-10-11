@@ -1,5 +1,12 @@
-;; ExecutorDAO is the one DAO to rule them all. 
-;; By Marvin Janssen
+;; Title: Ecosystem DAO
+;; Author: Clarity Innovation Lab
+;; Based-On: Executor DAO by Marvin Janssen
+;; Synopsis: Tools to support governance of the Stacks Blockchain.
+;; Description:
+;; Ecosystem DAO is a developer driven project
+;; which aims to give people a say in key
+;; decision making processes concerning 
+;; changes and upgrades to the Stacks Network.
 
 (use-trait proposal-trait .proposal-trait.proposal-trait)
 (use-trait extension-trait .extension-trait.extension-trait)

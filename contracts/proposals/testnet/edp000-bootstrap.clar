@@ -14,7 +14,7 @@
 (define-public (execute (sender principal))
 	(begin
 		;; Enable genesis extensions.
-		(try! (contract-call? .executor-dao set-extensions
+		(try! (contract-call? .ecosystem-dao set-extensions
 			(list
 				{extension: .ede000-governance-token, enabled: true}
 				{extension: .ede001-proposal-voting, enabled: true}

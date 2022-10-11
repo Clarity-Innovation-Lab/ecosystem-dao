@@ -44,10 +44,10 @@ plan:
             cost: 4900
             path: contracts/traits/governance-token-trait.clar
         - contract-publish:
-            contract-name: executor-dao
+            contract-name: ecosystem-dao
             expected-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
             cost: 25470
-            path: contracts/executor-dao.clar
+            path: contracts/ecosystem-dao.clar
         - contract-publish:
             contract-name: ede000-governance-token
             expected-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM

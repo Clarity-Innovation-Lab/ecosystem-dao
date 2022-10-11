@@ -1,5 +1,5 @@
 [project]
-name = "executor-dao"
+name = "ecosystem-dao"
 authors = []
 description = ""
 telemetry = false
@@ -8,63 +8,63 @@ costs_version = 2
 
 [contracts.ede000-governance-token]
 path = "contracts/extensions/ede000-governance-token.clar"
-depends_on = ["executor-dao", "governance-token-trait", "sip010-ft-trait"]
+depends_on = ["ecosystem-dao", "governance-token-trait", "sip010-ft-trait"]
 
 [contracts.ede000-governance-token-v2]
 path = "tests/proposals/ede000-governance-token-v2.clar"
-depends_on = ["executor-dao", "governance-token-trait", "sip010-ft-trait"]
+depends_on = ["ecosystem-dao", "governance-token-trait", "sip010-ft-trait"]
 
 [contracts.ede001-proposal-voting]
 path = "contracts/extensions/ede001-proposal-voting.clar"
-depends_on = ["executor-dao", "proposal-trait", "extension-trait", "ede000-governance-token"]
+depends_on = ["ecosystem-dao", "proposal-trait", "extension-trait", "ede000-governance-token"]
 
 [contracts.ede002-threshold-proposal-submission]
 path = "contracts/extensions/ede002-threshold-proposal-submission.clar"
-depends_on = ["executor-dao", "extension-trait", "ede001-proposal-voting"]
+depends_on = ["ecosystem-dao", "extension-trait", "ede001-proposal-voting"]
 
 [contracts.ede003-emergency-proposals]
 path = "contracts/extensions/ede003-emergency-proposals.clar"
-depends_on = ["executor-dao", "extension-trait", "ede001-proposal-voting"]
+depends_on = ["ecosystem-dao", "extension-trait", "ede001-proposal-voting"]
 
 [contracts.ede004-emergency-execute]
 path = "contracts/extensions/ede004-emergency-execute.clar"
-depends_on = ["executor-dao", "extension-trait", "ede001-proposal-voting"]
+depends_on = ["ecosystem-dao", "extension-trait", "ede001-proposal-voting"]
 
 [contracts.ede005-dev-fund]
 path = "contracts/extensions/ede005-dev-fund.clar"
-depends_on = ["executor-dao", "extension-trait", "ede000-governance-token"]
+depends_on = ["ecosystem-dao", "extension-trait", "ede000-governance-token"]
 
 [contracts.ede006-treasury]
 path = "contracts/extensions/ede006-treasury.clar"
-depends_on = ["executor-dao", "extension-trait"]
+depends_on = ["ecosystem-dao", "extension-trait"]
 
 [contracts.ede007-snapshot-proposal-voting-v2]
 path = "contracts/extensions/ede007-snapshot-proposal-voting-v2.clar"
-depends_on = ["executor-dao", "extension-trait"]
+depends_on = ["ecosystem-dao", "extension-trait"]
 
 [contracts.ede008-funded-proposal-submission-v2]
 path = "contracts/extensions/ede008-funded-proposal-submission-v2.clar"
-depends_on = ["executor-dao", "extension-trait"]
+depends_on = ["ecosystem-dao", "extension-trait"]
 
 [contracts.ede009-governance-token-sale]
 path = "contracts/extensions/ede009-governance-token-sale.clar"
-depends_on = ["executor-dao", "extension-trait", "ede000-governance-token", "ede006-treasury"]
+depends_on = ["ecosystem-dao", "extension-trait", "ede000-governance-token", "ede006-treasury"]
 
 [contracts.edp000-bootstrap]
 path = "contracts/proposals/testnet/edp000-bootstrap.clar"
-depends_on = ["executor-dao", "proposal-trait", "extension-trait", "ede000-governance-token", "ede001-proposal-voting", "ede002-threshold-proposal-submission", "ede003-emergency-proposals", "ede004-emergency-execute"]
+depends_on = ["ecosystem-dao", "proposal-trait", "extension-trait", "ede000-governance-token", "ede001-proposal-voting", "ede002-threshold-proposal-submission", "ede003-emergency-proposals", "ede004-emergency-execute"]
 
 [contracts.edp000-bootstrap-minimal]
 path = "contracts/proposals/testnet/edp000-bootstrap-minimal.clar"
-depends_on = ["executor-dao", "proposal-trait", "extension-trait", "ede000-governance-token", "ede001-proposal-voting", "ede002-threshold-proposal-submission", "ede003-emergency-proposals", "ede004-emergency-execute"]
+depends_on = ["ecosystem-dao", "proposal-trait", "extension-trait", "ede000-governance-token", "ede001-proposal-voting", "ede002-threshold-proposal-submission", "ede003-emergency-proposals", "ede004-emergency-execute"]
 
 [contracts.edp001-dev-fund]
 path = "contracts/proposals/testnet/edp001-dev-fund.clar"
-depends_on = ["ede000-governance-token", "executor-dao"]
+depends_on = ["ede000-governance-token", "ecosystem-dao"]
 
 [contracts.edp002-kill-emergency-execute]
 path = "contracts/proposals/testnet/edp002-kill-emergency-execute.clar"
-depends_on = ["ede004-emergency-execute", "executor-dao"]
+depends_on = ["ede004-emergency-execute", "ecosystem-dao"]
 
 [contracts.edp003-allowlist-escrow-nft]
 path = "contracts/proposals/testnet/edp003-allowlist-escrow-nft.clar"
@@ -72,7 +72,7 @@ depends_on = ["proposal-trait", "nft-escrow"]
 
 [contracts.edp001-1-dev-fund]
 path = "tests/proposals/edp001-1-dev-fund.clar"
-depends_on = ["ede000-governance-token", "executor-dao"]
+depends_on = ["ede000-governance-token", "ecosystem-dao"]
 
 [contracts.edp004-dao-change-governance]
 path = "tests/proposals/edp004-dao-change-governance.clar"
@@ -114,8 +114,8 @@ depends_on = ["proposal-trait", "sip010-ft-trait"]
 path = "tests/proposals/edp010-transfer-013-assets.clar"
 depends_on = ["proposal-trait", "sip013-nft"]
 
-[contracts.executor-dao]
-path = "contracts/executor-dao.clar"
+[contracts.ecosystem-dao]
+path = "contracts/ecosystem-dao.clar"
 depends_on = ["proposal-trait", "extension-trait"]
 
 [contracts.extension-trait]

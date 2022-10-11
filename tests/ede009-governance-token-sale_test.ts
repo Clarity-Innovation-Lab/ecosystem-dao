@@ -298,7 +298,7 @@ Clarinet.test({
       utils.passProposal(0, chain, accounts, contractEDP009)
       exeDaoClient.isExtension(contractEDE009).result.expectBool(true)
 
-      console.log('see comment on https://github.com/Clarity-Innovation-Lab/executor-dao/pull/9')
+      console.log('see comment on https://github.com/Clarity-Innovation-Lab/ecosystem-dao/pull/9')
       console.log('uncomment test and set in ede009-governance-token-sale.clar')
       console.log('(define-constant minimum-sale-amount u3000) ;; Minimum number of tokens to sell for the sale to be successful.')
       
