@@ -26,6 +26,7 @@
 		(try! (contract-call? .ede004-emergency-execute set-executive-team-member 'SP3YZYAR5T90J6GCZ9M0338WMT5MTZ7G671JED9P0 true))
 
 		;; signal from 2 out of 3 team members required.
+		(try! (contract-call? .ede004-emergency-execute set-executive-team-sunset-height u13140)) 
 		(try! (contract-call? .ede004-emergency-execute set-signals-required u2)) 
 
 		(print "Ecosystem DAO has risen.")
