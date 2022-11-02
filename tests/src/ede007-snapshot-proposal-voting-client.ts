@@ -16,7 +16,8 @@ export enum EDE007SnapshotProposalVotingErrCode {
   err_proposal_inactive=3005,
   err_insufficient_voting_capacity=3006,
   err_end_block_height_not_reached=3007,
-  err_not_majority=3008
+  err_not_majority=3008,
+  err_exceeds_voting_cap=3009
   }
 
 export class EDE007SnapshotProposalVotingClient {

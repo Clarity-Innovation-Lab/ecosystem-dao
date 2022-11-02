@@ -38,12 +38,12 @@ depends_on = ["ecosystem-dao", "extension-trait", "ede000-governance-token"]
 path = "contracts/extensions/ede006-treasury.clar"
 depends_on = ["ecosystem-dao", "extension-trait"]
 
-[contracts.ede007-snapshot-proposal-voting-v2]
-path = "contracts/extensions/ede007-snapshot-proposal-voting-v2.clar"
+[contracts.ede007-snapshot-proposal-voting-v3]
+path = "contracts/extensions/ede007-snapshot-proposal-voting-v3.clar"
 depends_on = ["ecosystem-dao", "extension-trait"]
 
-[contracts.ede008-funded-proposal-submission-v2]
-path = "contracts/extensions/ede008-funded-proposal-submission-v2.clar"
+[contracts.ede008-funded-proposal-submission-v3]
+path = "contracts/extensions/ede008-funded-proposal-submission-v3.clar"
 depends_on = ["ecosystem-dao", "extension-trait"]
 
 [contracts.ede009-governance-token-sale]

@@ -150,8 +150,8 @@ export class Utils {
     const contractEDE004 = accounts.get("deployer")!.address + '.ede004-emergency-execute';
     const contractEDE005 = accounts.get("deployer")!.address + '.ede005-dev-fund';
     const contractEDE006 = accounts.get("deployer")!.address + '.ede006-treasury';
-    const contractEDE007 = accounts.get("deployer")!.address + '.ede007-snapshot-proposal-voting-v2';
-    const contractEDE008 = accounts.get("deployer")!.address + '.ede008-funded-proposal-submission-v2';
+    const contractEDE007 = accounts.get("deployer")!.address + '.ede007-snapshot-proposal-voting-v3';
+    const contractEDE008 = accounts.get("deployer")!.address + '.ede008-funded-proposal-submission-v3';
     const contractEDE009 = accounts.get("deployer")!.address + '.ede009-governance-token-sale';
     const contractNftEscrow = accounts.get("deployer")!.address + '.nft-escrow';
     const contractNft = accounts.get("deployer")!.address + '.sip009-nft';
@@ -170,8 +170,8 @@ export class Utils {
     const ede004EmergencyExecuteClient = new EDE004EmergencyExecuteClient(chain, deployer, 'ede004-emergency-execute');
     const ede005DevFundClient = new EDE005DevFundClient(chain, deployer, 'ede005-dev-fund');
     const ede006TreasuryClient = new EDE006TreasuryClient(chain, deployer, 'ede006-treasury');
-    const ede007SnapshotProposalVotingClient = new EDE007SnapshotProposalVotingClient(chain, deployer, 'ede007-snapshot-proposal-voting-v2');
-    const ede008FundedProposalSubmissionClient = new EDE008FundedProposalSubmissionClient(chain, deployer, 'ede008-funded-proposal-submission-v2');
+    const ede007SnapshotProposalVotingClient = new EDE007SnapshotProposalVotingClient(chain, deployer, 'ede007-snapshot-proposal-voting-v3');
+    const ede008FundedProposalSubmissionClient = new EDE008FundedProposalSubmissionClient(chain, deployer, 'ede008-funded-proposal-submission-v3');
     const ede009GovernanceTokenSaleClient = new EDE009GovernanceTokenSaleClient(chain, deployer, 'ede009-governance-token-sale');
     const nftEscrowClient = new NftEscrowClient(chain, deployer, 'nft-escrow');
     const nftClient = new NftClient(chain, deployer, 'sip009-nft');
