@@ -27,9 +27,10 @@
 (define-constant err-end-block-height-not-reached (err u3007))
 (define-constant err-not-majority (err u3008))
 (define-constant err-exceeds-voting-cap (err u3009))
+(define-constant err-block-not-found (err u3010))
 
 (define-constant custom-majority-upper u10000)
-(define-constant vote-cap u130000000000)
+;;(define-constant vote-cap u130000000000)
 
 (define-map proposals
 	principal
@@ -87,6 +88,13 @@
 	(default-to u0 (map-get? member-total-votes {proposal: proposal, voter: voter}))
 )
 
+(define-read-only (get-stacking-minimum-at-height (height uint))
+	(at-block (unwrap! (get-block-info? id-header-hash height) none)
+		;;(some vote-cap)
+		(some (contract-call? 'SP000000000000000000002Q6VF78.pox get-stacking-minimum))
+	)
+)
+
 (define-public (vote (amount uint) (for bool) (proposal principal))
 	(let
 		(
@@ -99,8 +107,9 @@
 			(<= new-total-votes (unwrap! (get-total-vote-capacity tx-sender (get start-block-height proposal-data)) err-proposal-inactive))
 			err-insufficient-voting-capacity
 		)
-		(asserts! (< new-total-votes vote-cap) err-exceeds-voting-cap)
-			;;(<= new-total-votes (contract-call? 'SP000000000000000000002Q6VF78.pox get-stacking-minimum)))
+		(asserts! 
+			(< new-total-votes (unwrap! (get-stacking-minimum-at-height (get start-block-height proposal-data)) err-block-not-found)) 
+			err-exceeds-voting-cap)
 			
 		(map-set member-total-votes {proposal: proposal, voter: tx-sender} new-total-votes)
 		(map-set proposals proposal

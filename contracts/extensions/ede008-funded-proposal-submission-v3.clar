@@ -35,7 +35,7 @@
 (define-map parameters (string-ascii 20) uint)
 
 (map-set parameters "funding-cost" u1000000000) ;; funding cost in uSTX. 1000 STX in this case.
-(map-set parameters "proposal-duration" u4032) ;; ~1 week based on a ~10 minute block time.
+(map-set parameters "proposal-duration" u1008) ;; ~4 weeks based on 4032 blocks at ~10 minute block time.
 (map-set parameters "proposal-start-delay" u6) ;; ~1 hour minimum delay before voting on a proposal can start.
 
 ;; --- Authorisation check

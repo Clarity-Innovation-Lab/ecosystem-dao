@@ -25,6 +25,9 @@ Clarinet.test({
     ]);
     block.receipts[0].result.expectOk().expectBool(true)
     ede008FundedProposalSubmissionClient.getParameter("funding-cost").result.expectOk().expectUint(ONE_THOUSAND_STX)
+    
+    // Note: tests expect proposal-duration=1008
+
     ede008FundedProposalSubmissionClient.getParameter("proposal-duration").result.expectOk().expectUint(1008)
     ede008FundedProposalSubmissionClient.getParameter("proposal-start-delay").result.expectOk().expectUint(6)
 
