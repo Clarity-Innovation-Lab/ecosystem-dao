@@ -39,6 +39,10 @@ export class EDE007SnapshotProposalVotingClient {
     return this.callReadOnlyFn("get-total-vote-capacity", [types.principal(voter), types.uint(height)]);
   }
 
+  getHistoricalValues(height: number, voter: string): ReadOnlyFn {
+    return this.callReadOnlyFn("get-historical-values", [types.uint(height), types.principal(voter)]);
+  }
+
   getProposalData(proposal: string): ReadOnlyFn {
     return this.callReadOnlyFn("get-proposal-data", [types.principal(proposal)]);
   }

@@ -27,10 +27,9 @@
 (define-constant err-end-block-height-not-reached (err u3007))
 (define-constant err-not-majority (err u3008))
 (define-constant err-exceeds-voting-cap (err u3009))
-(define-constant err-block-not-found (err u3010))
 
 (define-constant custom-majority-upper u10000)
-;;(define-constant vote-cap u130000000000)
+;; (define-constant vote-cap u2083333333333)
 
 (define-map proposals
 	principal
@@ -78,20 +77,14 @@
 
 ;; Votes
 
-(define-read-only (get-total-vote-capacity (voter principal) (height uint))
-	(at-block (unwrap! (get-block-info? id-header-hash height) none)
-		(some (stx-get-balance voter))
-	)
-)
-
 (define-read-only (get-current-total-votes (proposal principal) (voter principal))
 	(default-to u0 (map-get? member-total-votes {proposal: proposal, voter: voter}))
 )
 
-(define-read-only (get-stacking-minimum-at-height (height uint))
+(define-read-only (get-historical-values (height uint) (who principal))
 	(at-block (unwrap! (get-block-info? id-header-hash height) none)
-		;;(some vote-cap)
-		(some (contract-call? 'SP000000000000000000002Q6VF78.pox get-stacking-minimum))
+		;;(some {user-balance: (stx-get-balance who), voting-cap: vote-cap})
+		(some {user-balance: (stx-get-balance who), voting-cap: (contract-call? 'SP000000000000000000002Q6VF78.pox get-stacking-minimum)})
 	)
 )
 
@@ -99,16 +92,18 @@
 	(let
 		(
 			(proposal-data (unwrap! (map-get? proposals proposal) err-unknown-proposal))
+			;;(start-block (get start-block-height proposal-data))
 			(new-total-votes (+ (get-current-total-votes proposal tx-sender) amount))
+			(historical-values (unwrap! (get-historical-values (get start-block-height proposal-data) tx-sender) err-proposal-inactive))
 		)
 		(asserts! (>= block-height (get start-block-height proposal-data)) err-proposal-inactive)
 		(asserts! (< block-height (get end-block-height proposal-data)) err-proposal-inactive)
 		(asserts!
-			(<= new-total-votes (unwrap! (get-total-vote-capacity tx-sender (get start-block-height proposal-data)) err-proposal-inactive))
+			(<= new-total-votes (get user-balance historical-values))
 			err-insufficient-voting-capacity
 		)
 		(asserts! 
-			(< new-total-votes (unwrap! (get-stacking-minimum-at-height (get start-block-height proposal-data)) err-block-not-found)) 
+			(< new-total-votes (get voting-cap historical-values)) 
 			err-exceeds-voting-cap)
 			
 		(map-set member-total-votes {proposal: proposal, voter: tx-sender} new-total-votes)

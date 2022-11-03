@@ -50,7 +50,11 @@ Clarinet.test({
         exeDaoClient.construct(contractEDP000, deployer.address),
       ]);
       block.receipts[0].result.expectOk().expectBool(true)
-      ede007SnapshotProposalVotingClient.getTotalVoteCapacity(phil.address, 1).result.expectSome().expectUint(100000000000000)
+      //ede007SnapshotProposalVotingClient.getTotalVoteCapacity(phil.address, 1).result.expectSome().expectUint(100000000000000)
+      assertEquals(
+        ede007SnapshotProposalVotingClient.getHistoricalValues(1, phil.address).result.expectSome().expectTuple(),
+        { 'user-balance': 'u100000000000000', 'voting-cap': 'u2083333333333'}
+      );
     }
   });
   
@@ -117,9 +121,9 @@ Clarinet.test({
         ede007SnapshotProposalVotingClient.vote(500, true, contractEDP003, daisy.address),
       ]);
       block.receipts[0].result.expectErr().expectUint(EDE007SnapshotProposalVotingErrCode.err_proposal_inactive)
-  
+
     }
-  });  
+  });
   
   Clarinet.test({
     name: "Ensure proposal fails if votes for equals the custom majority.",
@@ -271,8 +275,8 @@ Clarinet.test({
       chain.mineEmptyBlock(block.height + 6);
 
       block = chain.mineBlock([
-        ede007SnapshotProposalVotingClient.vote(130000000000, true, contractEDP004, daisy.address),
-        ede007SnapshotProposalVotingClient.vote(129999999999, true, contractEDP004, phil.address),
+        ede007SnapshotProposalVotingClient.vote(2083333333333, true, contractEDP004, daisy.address),
+        ede007SnapshotProposalVotingClient.vote(2083333333332, true, contractEDP004, phil.address),
       ]);
       block.receipts[0].result.expectErr().expectUint(EDE007SnapshotProposalVotingErrCode.err_exceeds_voting_cap)
       block.receipts[1].result.expectOk().expectBool(true)  
