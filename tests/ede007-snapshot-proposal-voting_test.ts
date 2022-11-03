@@ -2,30 +2,8 @@
 import { types, Clarinet, Chain, Account } from "https://deno.land/x/clarinet@v0.31.1/index.ts";
 import { Utils } from "./src/utils.ts";
 import { EDE007SnapshotProposalVotingClient, EDE007SnapshotProposalVotingErrCode } from "./src/ede007-snapshot-proposal-voting-client.ts";
-import { EDE008FundedProposalSubmissionClient } from "./src/ede008-funded-proposal-submission-client.ts";
 import { assertEquals } from 'https://deno.land/std@0.90.0/testing/asserts.ts';
 
-const getDurations = (blockHeight: number, submissionClient: EDE008FundedProposalSubmissionClient): any => {
-    const duration1 = submissionClient.getParameter('proposal-duration').result.split('ok u')[1]
-    const proposalDuration = Number(duration1.split(')')[0])
-    const proposalStartDelay = 144
-    const startHeight = blockHeight + proposalStartDelay - 1
-    const endHeight = startHeight + proposalDuration
-    const emergencyProposalDuration = 144
-    const emergencyStartHeight = blockHeight + emergencyProposalDuration
-    const emergencyEndHeight = blockHeight + emergencyProposalDuration - 1
-
-    return {
-        startHeight: startHeight + 2,
-        endHeight: endHeight + 2,
-        proposalDuration,
-        proposalStartDelay,
-        emergencyProposalDuration,
-        emergencyEndHeight,
-        emergencyStartHeight,
-    }
-}
-      
 const assertProposal = (
     customMajority: number,
     concluded: boolean,
@@ -72,7 +50,11 @@ Clarinet.test({
         exeDaoClient.construct(contractEDP000, deployer.address),
       ]);
       block.receipts[0].result.expectOk().expectBool(true)
-      ede007SnapshotProposalVotingClient.getTotalVoteCapacity(phil.address, 1).result.expectSome().expectUint(100000000000000)
+      //ede007SnapshotProposalVotingClient.getTotalVoteCapacity(phil.address, 1).result.expectSome().expectUint(100000000000000)
+      assertEquals(
+        ede007SnapshotProposalVotingClient.getHistoricalValues(1, phil.address).result.expectSome().expectTuple(),
+        { 'user-balance': 'u100000000000000', 'voting-cap': 'u2083333333333'}
+      );
     }
   });
   
@@ -139,9 +121,9 @@ Clarinet.test({
         ede007SnapshotProposalVotingClient.vote(500, true, contractEDP003, daisy.address),
       ]);
       block.receipts[0].result.expectErr().expectUint(EDE007SnapshotProposalVotingErrCode.err_proposal_inactive)
-  
+
     }
-  });  
+  });
   
   Clarinet.test({
     name: "Ensure proposal fails if votes for equals the custom majority.",
@@ -258,5 +240,45 @@ Clarinet.test({
 
       assertProposal(8000, true, true, 19, 81, 9, 1017, daisy.address, contractEDP004, ede007SnapshotProposalVotingClient);
   
+    }
+  });
+
+  Clarinet.test({
+    name: "Ensure vote fails if exceed voting cap.",
+    fn(chain: Chain, accounts: Map<string, Account>) {
+      const {
+        deployer, 
+        exeDaoClient,
+        daisy,
+        phil,
+        contractEDP000,
+        contractEDP004,
+        ede007SnapshotProposalVotingClient,
+        ede008FundedProposalSubmissionClient
+      } = utils.setup(chain, accounts)
+
+      let block = chain.mineBlock([
+        exeDaoClient.construct(contractEDP000, deployer.address),
+      ]);
+      block.receipts[0].result.expectOk().expectBool(true)
+
+      const majority = 8000;
+      block = chain.mineBlock([
+        ede008FundedProposalSubmissionClient.fund(contractEDP004, ONE_THOUSAND_STX, majority, daisy.address),
+      ]);
+      block.receipts[0].result.expectOk().expectBool(true)
+      assertProposal(8000, false, false, 0, 0, 9, 1017, daisy.address, contractEDP004, ede007SnapshotProposalVotingClient);
+
+      ede008FundedProposalSubmissionClient.getParameter("proposal-start-delay").result.expectOk().expectUint(6)
+      ede008FundedProposalSubmissionClient.getParameter("proposal-duration").result.expectOk().expectUint(1008)
+
+      chain.mineEmptyBlock(block.height + 6);
+
+      block = chain.mineBlock([
+        ede007SnapshotProposalVotingClient.vote(2083333333333, true, contractEDP004, daisy.address),
+        ede007SnapshotProposalVotingClient.vote(2083333333332, true, contractEDP004, phil.address),
+      ]);
+      block.receipts[0].result.expectErr().expectUint(EDE007SnapshotProposalVotingErrCode.err_exceeds_voting_cap)
+      block.receipts[1].result.expectOk().expectBool(true)  
     }
   });

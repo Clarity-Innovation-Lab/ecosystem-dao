@@ -16,7 +16,8 @@ export enum EDE007SnapshotProposalVotingErrCode {
   err_proposal_inactive=3005,
   err_insufficient_voting_capacity=3006,
   err_end_block_height_not_reached=3007,
-  err_not_majority=3008
+  err_not_majority=3008,
+  err_exceeds_voting_cap=3009
   }
 
 export class EDE007SnapshotProposalVotingClient {
@@ -36,6 +37,10 @@ export class EDE007SnapshotProposalVotingClient {
 
   getTotalVoteCapacity(voter: string, height: number): ReadOnlyFn {
     return this.callReadOnlyFn("get-total-vote-capacity", [types.principal(voter), types.uint(height)]);
+  }
+
+  getHistoricalValues(height: number, voter: string): ReadOnlyFn {
+    return this.callReadOnlyFn("get-historical-values", [types.uint(height), types.principal(voter)]);
   }
 
   getProposalData(proposal: string): ReadOnlyFn {
