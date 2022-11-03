@@ -83,7 +83,6 @@
 
 (define-read-only (get-historical-values (height uint) (who principal))
 	(at-block (unwrap! (get-block-info? id-header-hash height) none)
-		;;(some {user-balance: (stx-get-balance who), voting-cap: vote-cap})
 		(some {user-balance: (stx-get-balance who), voting-cap: (contract-call? 'SP000000000000000000002Q6VF78.pox get-stacking-minimum)})
 	)
 )
@@ -92,7 +91,6 @@
 	(let
 		(
 			(proposal-data (unwrap! (map-get? proposals proposal) err-unknown-proposal))
-			;;(start-block (get start-block-height proposal-data))
 			(new-total-votes (+ (get-current-total-votes proposal tx-sender) amount))
 			(historical-values (unwrap! (get-historical-values (get start-block-height proposal-data) tx-sender) err-proposal-inactive))
 		)
