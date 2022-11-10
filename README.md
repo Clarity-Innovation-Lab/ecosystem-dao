@@ -29,3 +29,11 @@ EcosystemDAO will launch with the following additional features;
 ## License
 
 MIT license, all good as long as the copyright and permission notice are included.
+
+Stacked in cycle 46
+snapshot user balance - amount locked in current cycle
+
+
+SP4DYYK99BZS7S95KYYEJAJE5VJ21F57M4NS0Q5F
+
+(some (tuple (amount-ustx u45000000000) (first-reward-cycle u37) (lock-period u12) (pox-addr (tuple (hashbytes 0x13effebe0ea4bb45e35694f5a15bb5b96e851afb) (version 0x01)))))
