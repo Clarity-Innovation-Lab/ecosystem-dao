@@ -53,7 +53,7 @@ Clarinet.test({
       //ede007SnapshotProposalVotingClient.getTotalVoteCapacity(phil.address, 1).result.expectSome().expectUint(100000000000000)
       assertEquals(
         ede007SnapshotProposalVotingClient.getHistoricalValues(1, phil.address).result.expectSome().expectTuple(),
-        { 'user-balance': 'u100000000000000', 'voting-cap': 'u2083333333333'}
+        { "locked-balance": "u0", 'user-balance': 'u100000000000000', 'voting-cap': 'u2083333333333'}
       );
     }
   });
@@ -88,7 +88,7 @@ Clarinet.test({
         ede008FundedProposalSubmissionClient.fund(contractEDP003, ONE_HUNDRED_STX, majority, daisy.address),
       ]);
       block.receipts[0].result.expectOk().expectBool(true)
-      assertProposal(8000, false, false, 0, 0, 10, 1018, daisy.address, contractEDP003, ede007SnapshotProposalVotingClient);
+      assertProposal(8000, false, false, 0, 0, 10, 4042, daisy.address, contractEDP003, ede007SnapshotProposalVotingClient);
     }
   });  
   
@@ -115,7 +115,7 @@ Clarinet.test({
         ede008FundedProposalSubmissionClient.fund(contractEDP003, ONE_THOUSAND_STX, majority, daisy.address),
       ]);
       block.receipts[0].result.expectOk().expectBool(true)
-      assertProposal(8000, false, false, 0, 0, 9, 1017, daisy.address, contractEDP003, ede007SnapshotProposalVotingClient);
+      assertProposal(8000, false, false, 0, 0, 9, 4041, daisy.address, contractEDP003, ede007SnapshotProposalVotingClient);
 
       block = chain.mineBlock([
         ede007SnapshotProposalVotingClient.vote(500, true, contractEDP003, daisy.address),
@@ -152,10 +152,10 @@ Clarinet.test({
         ede008FundedProposalSubmissionClient.fund(contractEDP003, ONE_THOUSAND_STX, majority, daisy.address),
       ]);
       block.receipts[0].result.expectOk().expectBool(true)
-      assertProposal(8000, false, false, 0, 0, 9, 1017, daisy.address, contractEDP003, ede007SnapshotProposalVotingClient);
+      assertProposal(8000, false, false, 0, 0, 9, 4041, daisy.address, contractEDP003, ede007SnapshotProposalVotingClient);
 
       ede008FundedProposalSubmissionClient.getParameter("proposal-start-delay").result.expectOk().expectUint(6)
-      ede008FundedProposalSubmissionClient.getParameter("proposal-duration").result.expectOk().expectUint(1008)
+      ede008FundedProposalSubmissionClient.getParameter("proposal-duration").result.expectOk().expectUint(4032)
 
       chain.mineEmptyBlock(block.height + 6);
 
@@ -172,14 +172,14 @@ Clarinet.test({
       block.receipts[3].result.expectOk().expectBool(true)
       block.receipts[4].result.expectOk().expectBool(true)
 
-      chain.mineEmptyBlock(block.height + 1008);
+      chain.mineEmptyBlock(block.height + 4032);
 
       block = chain.mineBlock([
         ede007SnapshotProposalVotingClient.conclude(contractEDP003, daisy.address),
       ]);
       block.receipts[0].result.expectOk().expectBool(false)
 
-      assertProposal(8000, true, false, 20, 80, 9, 1017, daisy.address, contractEDP003, ede007SnapshotProposalVotingClient);
+      assertProposal(8000, true, false, 20, 80, 9, 4041, daisy.address, contractEDP003, ede007SnapshotProposalVotingClient);
   
     }
   });
@@ -211,10 +211,10 @@ Clarinet.test({
         ede008FundedProposalSubmissionClient.fund(contractEDP004, ONE_THOUSAND_STX, majority, daisy.address),
       ]);
       block.receipts[0].result.expectOk().expectBool(true)
-      assertProposal(8000, false, false, 0, 0, 9, 1017, daisy.address, contractEDP004, ede007SnapshotProposalVotingClient);
+      assertProposal(8000, false, false, 0, 0, 9, 4041, daisy.address, contractEDP004, ede007SnapshotProposalVotingClient);
 
       ede008FundedProposalSubmissionClient.getParameter("proposal-start-delay").result.expectOk().expectUint(6)
-      ede008FundedProposalSubmissionClient.getParameter("proposal-duration").result.expectOk().expectUint(1008)
+      ede008FundedProposalSubmissionClient.getParameter("proposal-duration").result.expectOk().expectUint(4032)
 
       chain.mineEmptyBlock(block.height + 6);
 
@@ -231,14 +231,14 @@ Clarinet.test({
       block.receipts[3].result.expectOk().expectBool(true)
       block.receipts[4].result.expectOk().expectBool(true)
 
-      chain.mineEmptyBlock(block.height + 1008);
+      chain.mineEmptyBlock(block.height + 4032);
 
       block = chain.mineBlock([
         ede007SnapshotProposalVotingClient.conclude(contractEDP004, daisy.address),
       ]);
       block.receipts[0].result.expectOk().expectBool(true)
 
-      assertProposal(8000, true, true, 19, 81, 9, 1017, daisy.address, contractEDP004, ede007SnapshotProposalVotingClient);
+      assertProposal(8000, true, true, 19, 81, 9, 4041, daisy.address, contractEDP004, ede007SnapshotProposalVotingClient);
   
     }
   });
@@ -267,10 +267,10 @@ Clarinet.test({
         ede008FundedProposalSubmissionClient.fund(contractEDP004, ONE_THOUSAND_STX, majority, daisy.address),
       ]);
       block.receipts[0].result.expectOk().expectBool(true)
-      assertProposal(8000, false, false, 0, 0, 9, 1017, daisy.address, contractEDP004, ede007SnapshotProposalVotingClient);
+      assertProposal(8000, false, false, 0, 0, 9, 4041, daisy.address, contractEDP004, ede007SnapshotProposalVotingClient);
 
       ede008FundedProposalSubmissionClient.getParameter("proposal-start-delay").result.expectOk().expectUint(6)
-      ede008FundedProposalSubmissionClient.getParameter("proposal-duration").result.expectOk().expectUint(1008)
+      ede008FundedProposalSubmissionClient.getParameter("proposal-duration").result.expectOk().expectUint(4032)
 
       chain.mineEmptyBlock(block.height + 6);
 

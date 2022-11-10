@@ -28,7 +28,7 @@ Clarinet.test({
     
     // Note: tests expect proposal-duration=1008
 
-    ede008FundedProposalSubmissionClient.getParameter("proposal-duration").result.expectOk().expectUint(1008)
+    ede008FundedProposalSubmissionClient.getParameter("proposal-duration").result.expectOk().expectUint(4032)
     ede008FundedProposalSubmissionClient.getParameter("proposal-start-delay").result.expectOk().expectUint(6)
 
     block = chain.mineBlock([

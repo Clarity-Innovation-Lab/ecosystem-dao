@@ -34,8 +34,8 @@
 
 (define-map parameters (string-ascii 20) uint)
 
-(map-set parameters "funding-cost" u1000000000) ;; funding cost in uSTX. 1000 STX in this case.
-(map-set parameters "proposal-duration" u1008) ;; ~4 weeks is 4032 blocks at ~10 minute block time.
+(map-set parameters "funding-cost" u5000000) ;; funding cost in uSTX. 5 STX in this case.
+(map-set parameters "proposal-duration" u4032) ;; ~4 weeks is 4032 blocks at ~10 minute block time.
 (map-set parameters "proposal-start-delay" u6) ;; ~1 hour minimum delay before voting on a proposal can start.
 
 ;; --- Authorisation check
@@ -49,7 +49,7 @@
 ;; Proposals
 
 (define-private (submit-proposal-for-vote (proposal <proposal-trait>) (start-block-height uint) (custom-majority (optional uint)))
-	(contract-call? .ede007-snapshot-proposal-voting-v3 add-proposal
+	(contract-call? .ede007-snapshot-proposal-voting-v4 add-proposal
 		proposal
 		{
 			start-block-height: start-block-height,
