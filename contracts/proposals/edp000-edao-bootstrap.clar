@@ -15,8 +15,8 @@
 			(list
 				{extension: .ede004-emergency-execute, enabled: true}
 				{extension: .ede006-treasury, enabled: true}
-				{extension: .ede007-snapshot-proposal-voting-v3, enabled: true}
-				{extension: .ede008-funded-proposal-submission-v3, enabled: true}
+				{extension: .ede007-snapshot-proposal-voting-v5, enabled: true}
+				{extension: .ede008-funded-proposal-submission-v5, enabled: true}
 			)
 		))
 
@@ -28,7 +28,7 @@
 		(try! (contract-call? .ede004-emergency-execute set-signals-required u2))
 
 		;; Set dao parameters.
-		(try! (contract-call? .ede008-funded-proposal-submission-v3 set-parameter "funding-cost" u10000000)) 
+		(try! (contract-call? .ede008-funded-proposal-submission-v5 set-parameter "funding-cost" u10000000)) 
 
 		(print "Ecosystem DAO has risen.")
 		(ok true)
