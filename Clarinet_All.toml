@@ -1,0 +1,163 @@
+[project]
+name = "ecosystem-dao"
+authors = []
+description = ""
+telemetry = false
+requirements = []
+costs_version = 2
+
+[contracts.ede000-governance-token]
+path = "contracts/extensions/ede000-governance-token.clar"
+depends_on = ["ecosystem-dao", "governance-token-trait", "sip010-ft-trait"]
+
+[contracts.ede000-governance-token-v2]
+path = "tests/proposals/ede000-governance-token-v2.clar"
+depends_on = ["ecosystem-dao", "governance-token-trait", "sip010-ft-trait"]
+
+[contracts.ede001-proposal-voting]
+path = "contracts/extensions/ede001-proposal-voting.clar"
+depends_on = ["ecosystem-dao", "proposal-trait", "extension-trait", "ede000-governance-token"]
+
+[contracts.ede002-threshold-proposal-submission]
+path = "contracts/extensions/ede002-threshold-proposal-submission.clar"
+depends_on = ["ecosystem-dao", "extension-trait", "ede001-proposal-voting"]
+
+[contracts.ede003-emergency-proposals]
+path = "contracts/extensions/ede003-emergency-proposals.clar"
+depends_on = ["ecosystem-dao", "extension-trait", "ede001-proposal-voting"]
+
+[contracts.ede004-emergency-execute]
+path = "contracts/extensions/ede004-emergency-execute.clar"
+depends_on = ["ecosystem-dao", "extension-trait", "ede001-proposal-voting"]
+
+[contracts.ede005-dev-fund]
+path = "contracts/extensions/ede005-dev-fund.clar"
+depends_on = ["ecosystem-dao", "extension-trait", "ede000-governance-token"]
+
+[contracts.ede006-treasury]
+path = "contracts/extensions/ede006-treasury.clar"
+depends_on = ["ecosystem-dao", "extension-trait"]
+
+[contracts.ede007-snapshot-proposal-voting-v5]
+path = "contracts/extensions/ede007-snapshot-proposal-voting-v5.clar"
+depends_on = ["ecosystem-dao", "extension-trait"]
+
+[contracts.ede008-funded-proposal-submission-v5]
+path = "contracts/extensions/ede008-funded-proposal-submission-v5.clar"
+depends_on = ["ecosystem-dao", "extension-trait"]
+
+[contracts.ede009-governance-token-sale]
+path = "contracts/extensions/ede009-governance-token-sale.clar"
+depends_on = ["ecosystem-dao", "extension-trait", "ede000-governance-token", "ede006-treasury"]
+
+[contracts.edp000-bootstrap]
+path = "contracts/proposals/testnet/edp000-bootstrap.clar"
+depends_on = ["ecosystem-dao", "proposal-trait", "extension-trait", "ede000-governance-token", "ede001-proposal-voting", "ede002-threshold-proposal-submission", "ede003-emergency-proposals", "ede004-emergency-execute"]
+
+[contracts.edp000-bootstrap-minimal]
+path = "contracts/proposals/testnet/edp000-bootstrap-minimal.clar"
+depends_on = ["ecosystem-dao", "proposal-trait", "extension-trait", "ede000-governance-token", "ede001-proposal-voting", "ede002-threshold-proposal-submission", "ede003-emergency-proposals", "ede004-emergency-execute"]
+
+[contracts.edp001-dev-fund]
+path = "contracts/proposals/testnet/edp001-dev-fund.clar"
+depends_on = ["ede000-governance-token", "ecosystem-dao"]
+
+[contracts.edp002-kill-emergency-execute]
+path = "contracts/proposals/testnet/edp002-kill-emergency-execute.clar"
+depends_on = ["ede004-emergency-execute", "ecosystem-dao"]
+
+[contracts.edp003-allowlist-escrow-nft]
+path = "contracts/proposals/testnet/edp003-allowlist-escrow-nft.clar"
+depends_on = ["proposal-trait", "nft-escrow"]
+
+[contracts.edp001-1-dev-fund]
+path = "tests/proposals/edp001-1-dev-fund.clar"
+depends_on = ["ede000-governance-token", "ecosystem-dao"]
+
+[contracts.edp004-dao-change-governance]
+path = "tests/proposals/edp004-dao-change-governance.clar"
+depends_on = ["proposal-trait"]
+
+[contracts.edp005-dao-change-sample-config]
+path = "tests/proposals/edp005-dao-change-sample-config.clar"
+depends_on = ["proposal-trait"]
+
+[contracts.edp006-dao-mint-burn-edg]
+path = "tests/proposals/edp006-dao-mint-burn-edg.clar"
+depends_on = ["proposal-trait"]
+
+[contracts.edp007-dao-update-executive]
+path = "tests/proposals/edp007-dao-update-executive.clar"
+depends_on = ["proposal-trait"]
+
+[contracts.edp008-1-allowlist-nft-escrow]
+path = "tests/proposals/edp008-1-allowlist-nft-escrow.clar"
+depends_on = ["proposal-trait"]
+
+[contracts.edp009-enable-treasury]
+path = "tests/proposals/edp009-enable-treasury.clar"
+depends_on = ["proposal-trait"]
+
+[contracts.edp010-transfer-stx-assets]
+path = "tests/proposals/edp010-transfer-stx-assets.clar"
+depends_on = ["proposal-trait"]
+
+[contracts.edp010-transfer-009-assets]
+path = "tests/proposals/edp010-transfer-009-assets.clar"
+depends_on = ["proposal-trait", "sip009-nft"]
+
+[contracts.edp010-transfer-010-assets]
+path = "tests/proposals/edp010-transfer-010-assets.clar"
+depends_on = ["proposal-trait", "sip010-ft-trait"]
+
+[contracts.edp010-transfer-013-assets]
+path = "tests/proposals/edp010-transfer-013-assets.clar"
+depends_on = ["proposal-trait", "sip013-nft"]
+
+[contracts.ecosystem-dao]
+path = "contracts/ecosystem-dao.clar"
+depends_on = ["proposal-trait", "extension-trait"]
+
+[contracts.extension-trait]
+path = "contracts/traits/extension-trait.clar"
+depends_on = []
+
+[contracts.governance-token-trait]
+path = "contracts/traits/governance-token-trait.clar"
+depends_on = []
+
+[contracts.nft-escrow]
+path = "contracts/external/nft-escrow.clar"
+depends_on = ["ownable-trait", "sip009-nft-trait"]
+
+[contracts.ownable-trait]
+path = "contracts/traits/ownable-trait.clar"
+depends_on = []
+
+[contracts.proposal-trait]
+path = "contracts/traits/proposal-trait.clar"
+depends_on = []
+
+[contracts.sip009-nft]
+path = "tests/proposals/sip009-nft.clar"
+depends_on = ["sip009-nft-trait"]
+
+[contracts.sip009-nft-trait]
+path = "tests/proposals/sip009-nft-trait.clar"
+depends_on = []
+
+[contracts.sip013-nft]
+path = "tests/proposals/sip013-nft.clar"
+depends_on = ["sip013-semi-fungible-token-trait", "sip013-transfer-many-trait"]
+
+[contracts.sip013-semi-fungible-token-trait]
+path = "tests/proposals/sip013-semi-fungible-token-trait.clar"
+depends_on = []
+
+[contracts.sip013-transfer-many-trait]
+path = "tests/proposals/sip013-transfer-many-trait.clar"
+depends_on = []
+
+[contracts.sip010-ft-trait]
+path = "contracts/traits/sip010-ft-trait.clar"
+depends_on = []
