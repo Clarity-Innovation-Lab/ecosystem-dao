@@ -21,8 +21,8 @@
 				{extension: .ede002-threshold-proposal-submission, enabled: true}
 				{extension: .ede003-emergency-proposals, enabled: true}
 				{extension: .ede004-emergency-execute, enabled: true}
-				{extension: .ede007-snapshot-proposal-voting-v3, enabled: true}
-				{extension: .ede008-funded-proposal-submission-v3, enabled: true}
+				{extension: .ede007-snapshot-proposal-voting-v5, enabled: true}
+				{extension: .ede008-funded-proposal-submission-v5, enabled: true}
 			)
 		))
 
@@ -39,8 +39,8 @@
 		(try! (contract-call? .ede004-emergency-execute set-executive-team-sunset-height (+ block-height u13140))) 
 
 		;; Make EDP003 refundable
-		(try! (contract-call? .ede008-funded-proposal-submission-v3 set-refundable .edp003-allowlist-escrow-nft true)) ;; signal from 3 out of 4 team members requied.
-		(try! (contract-call? .ede008-funded-proposal-submission-v3 set-parameter "funding-cost" u1000000000)) 
+		(try! (contract-call? .ede008-funded-proposal-submission-v5 set-refundable .edp003-allowlist-escrow-nft true)) ;; signal from 3 out of 4 team members requied.
+		(try! (contract-call? .ede008-funded-proposal-submission-v5 set-parameter "funding-cost" u1000000000)) 
 
 		;; Mint initial token supply.
 		(try! (contract-call? .ede000-governance-token edg-mint-many

@@ -1,12 +1,18 @@
-;; Title: EDE008 Funded Proposal Submission
-;; Author: Marvin Janssen
-;; Depends-On: EDE001
+;; Title: EDE008 Funded Custom End Proposal Submission
+;; Author: Marvin Janssen & Mike Cohen
+;; Depends-On: EDE001, EDE007
 ;; Synopsis:
 ;; This extension part of the core of ExecutorDAO. It allows members to
 ;; bring proposals to the voting phase by funding them with a preset amount
-;; of tokens.
+;; of tokens. 
 ;; Description:
-;; TODO
+;; The level of funding is determined by a DAO parameter and can be changed by proposal.
+;; Any funder can reclaim their stx up to the point the proposal is fully funded and submitted.
+;; Proposals can also be marked as refundable in which case a funder can reclaim their stx
+;; even after submission (during or after the voting period).
+;; This extension provides the ability for the final funding transaction to set a
+;; custom majority for voting. This changes the threshold from the 
+;; default of 50% to anything up to 100%.
 
 (impl-trait .extension-trait.extension-trait)
 (use-trait proposal-trait .proposal-trait.proposal-trait)
@@ -16,7 +22,7 @@
 (define-constant err-insufficient-balance (err u3102))
 (define-constant err-unknown-parameter (err u3103))
 (define-constant err-proposal-minimum-start-delay (err u3104))
-(define-constant err-proposal-maximum-start-delay (err u3105))
+(define-constant err-proposal-minimum-duration (err u3105))
 (define-constant err-already-funded (err u3106))
 (define-constant err-nothing-to-refund (err u3107))
 (define-constant err-refund-not-allowed (err u3108))
@@ -26,11 +32,11 @@
 (define-map proposal-funding principal uint)
 (define-map funding-per-principal {proposal: principal, funder: principal} uint)
 
-(define-map parameters (string-ascii 20) uint)
+(define-map parameters (string-ascii 30) uint)
 
-(map-set parameters "funding-cost" u1000000000) ;; funding cost in uSTX. 1000 STX in this case.
-(map-set parameters "proposal-duration" u1008) ;; ~1 week based on a ~10 minute block time.
-(map-set parameters "proposal-start-delay" u6) ;; ~1 hour minimum delay before voting on a proposal can start.
+(map-set parameters "funding-cost" u500000) ;; funding cost in uSTX. 5 STX in this case.
+(map-set parameters "minimum-proposal-start-delay" u6) ;; eg 6 = ~1 hour minimum delay before voting on a proposal can start.
+(map-set parameters "minimum-proposal-duration" u72) ;; eg 72 = ~1/2 days minimum duration of voting.
 
 ;; --- Authorisation check
 
@@ -42,12 +48,13 @@
 
 ;; Proposals
 
-(define-private (submit-proposal-for-vote (proposal <proposal-trait>) (start-block-height uint))
-	(contract-call? .ede007-snapshot-proposal-voting add-proposal
+(define-private (submit-proposal-for-vote (proposal <proposal-trait>) (start-block-height uint) (duration uint) (custom-majority (optional uint)))
+	(contract-call? .ede007-snapshot-proposal-voting-v5 add-proposal
 		proposal
 		{
 			start-block-height: start-block-height,
-			end-block-height: (+ start-block-height (try! (get-parameter "proposal-duration"))),
+			end-block-height: (+ start-block-height duration),
+			custom-majority: custom-majority,
 			proposer: tx-sender ;; change to original submitter
 		}
 	)
@@ -55,7 +62,7 @@
 
 ;; Parameters
 
-(define-public (set-parameter (parameter (string-ascii 20)) (value uint))
+(define-public (set-parameter (parameter (string-ascii 30)) (value uint))
 	(begin
 		(try! (is-dao-or-extension))
 		(try! (get-parameter parameter))
@@ -76,7 +83,7 @@
 
 ;; Parameters
 
-(define-read-only (get-parameter (parameter (string-ascii 20)))
+(define-read-only (get-parameter (parameter (string-ascii 30)))
 	(ok (unwrap! (map-get? parameters parameter) err-unknown-parameter))
 )
 
@@ -103,7 +110,7 @@
 
 ;; Proposals
 
-(define-public (fund (proposal <proposal-trait>) (amount uint))
+(define-public (fund (proposal <proposal-trait>) (start-delay uint) (duration uint) (amount uint) (custom-majority (optional uint)))
 	(let
 		(
 			(proposal-principal (contract-of proposal))
@@ -118,8 +125,10 @@
 		(map-set funding-per-principal {proposal: proposal-principal, funder: tx-sender} (+ (get-proposal-funding-by-principal proposal-principal tx-sender) transfer-amount))
 		(map-set proposal-funding proposal-principal (+ current-total-funding transfer-amount))
 		(asserts! funded (ok false))
+		(asserts! (>= start-delay (try! (get-parameter "minimum-proposal-start-delay"))) err-proposal-minimum-start-delay)
+		(asserts! (>= duration (try! (get-parameter "minimum-proposal-duration"))) err-proposal-minimum-duration)
 		(map-set funded-proposals proposal-principal true)
-		(submit-proposal-for-vote proposal (+ block-height (try! (get-parameter "proposal-start-delay"))))
+		(submit-proposal-for-vote proposal (+ block-height start-delay) duration custom-majority)
 	)
 )
 

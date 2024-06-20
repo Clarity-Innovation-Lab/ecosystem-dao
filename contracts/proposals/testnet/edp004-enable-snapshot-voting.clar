@@ -13,6 +13,6 @@
 (impl-trait .proposal-trait.proposal-trait)
 
 (define-public (execute (sender principal))
-	(try! (contract-call? .ecosystem-dao set-extension .ede007-snapshot-proposal-voting-v3 true))
-	(contract-call? .ecosystem-dao set-extension .ede008-funded-proposal-submission-v3 true)
+	(try! (contract-call? .ecosystem-dao set-extension .ede007-snapshot-proposal-voting-v5 true))
+	(contract-call? .ecosystem-dao set-extension .ede008-funded-proposal-submission-v5 true)
 )

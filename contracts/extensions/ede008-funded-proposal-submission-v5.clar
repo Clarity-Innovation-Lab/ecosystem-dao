@@ -4,9 +4,15 @@
 ;; Synopsis:
 ;; This extension part of the core of ExecutorDAO. It allows members to
 ;; bring proposals to the voting phase by funding them with a preset amount
-;; of tokens.
+;; of tokens. 
 ;; Description:
-;; TODO
+;; The level of funding is determined by a DAO parameter and can be changed by proposal.
+;; Any funder can reclaim their stx up to the point the proposal is fully funded and submitted.
+;; Proposals can also be marked as refundable in which case a funder can reclaim their stx
+;; even after submission (during or after the voting period).
+;; This extension provides the ability for the final funding transaction to set a
+;; custom majority for voting. This changes the threshold from the 
+;; default of 50% to anything up to 100%.
 
 (impl-trait .extension-trait.extension-trait)
 (use-trait proposal-trait .proposal-trait.proposal-trait)
@@ -28,8 +34,8 @@
 
 (define-map parameters (string-ascii 20) uint)
 
-(map-set parameters "funding-cost" u1000000000) ;; funding cost in uSTX. 1000 STX in this case.
-(map-set parameters "proposal-duration" u1008) ;; ~1 week based on a ~10 minute block time.
+(map-set parameters "funding-cost" u5000000) ;; funding cost in uSTX. 5 STX in this case.
+(map-set parameters "proposal-duration" u4032) ;; ~4 weeks blocks at ~10 minute block time.
 (map-set parameters "proposal-start-delay" u6) ;; ~1 hour minimum delay before voting on a proposal can start.
 
 ;; --- Authorisation check
@@ -42,12 +48,13 @@
 
 ;; Proposals
 
-(define-private (submit-proposal-for-vote (proposal <proposal-trait>) (start-block-height uint))
-	(contract-call? .ede007-snapshot-proposal-voting add-proposal
+(define-private (submit-proposal-for-vote (proposal <proposal-trait>) (start-block-height uint) (custom-majority (optional uint)))
+	(contract-call? .ede007-snapshot-proposal-voting-v5 add-proposal
 		proposal
 		{
 			start-block-height: start-block-height,
 			end-block-height: (+ start-block-height (try! (get-parameter "proposal-duration"))),
+			custom-majority: custom-majority,
 			proposer: tx-sender ;; change to original submitter
 		}
 	)
@@ -103,7 +110,7 @@
 
 ;; Proposals
 
-(define-public (fund (proposal <proposal-trait>) (amount uint))
+(define-public (fund (proposal <proposal-trait>) (amount uint) (custom-majority (optional uint)))
 	(let
 		(
 			(proposal-principal (contract-of proposal))
@@ -119,7 +126,7 @@
 		(map-set proposal-funding proposal-principal (+ current-total-funding transfer-amount))
 		(asserts! funded (ok false))
 		(map-set funded-proposals proposal-principal true)
-		(submit-proposal-for-vote proposal (+ block-height (try! (get-parameter "proposal-start-delay"))))
+		(submit-proposal-for-vote proposal (+ block-height (try! (get-parameter "proposal-start-delay"))) custom-majority)
 	)
 )
 
